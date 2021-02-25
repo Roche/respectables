@@ -6,15 +6,18 @@ is_numeric_single <- function(x) is(x, "numeric") && length(x) == 1L
 #' when debugging recipes. Normal workflows will not involve calling
 #' it directly.
 #'
-#' @param str ANY. A function (immediately returned) or a character(1) value of the form \code{func"}, \code{"pkg::func"} or \code{"pkg:::func"}. Any other value will result in an error.
+#' @param str ANY. A function (immediately returned) or a character(1) value of the form \code{func},
+#'   \code{"pkg::func"} or \code{"pkg:::func"}. Any other value will result in an error.
 #'
 #' @return A function
+#'
+#' @export
+#'
 #' @examples
 #' lookup_fun(rnorm)
 #' lookup_fun("rnorm")
 #' lookup_fun("stats::rnorm")
 #' lookup_fun("stats:::rnorm")
-#' @export
 lookup_fun <- function(str) {
     if(is.function(str))
         return(str)

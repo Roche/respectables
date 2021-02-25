@@ -30,15 +30,14 @@ a patient might have 0, 1, or many rows (ADAE).
 Furthermore, when synthesizing in one of these 0 to many records per
 patient type tables, the distributions to sample observations from are
 often conditional on information (typically demographic or study
-structure, ie Arm, in CDISC) from the table which originates the key.
+structure, i.e. Arm, in CDISC) from the table which originates the key.
 
 The utilities in this package provide a framework to define recipes
 for both the foreign-key/implicit join and distributional
-conditionality aspects of this problem. We also provide machinery
+conditionally aspects of this problem. We also provide machinery
 for injecting randomness artificially into data (either synthetic
 or real).
 
-## 
 
 ## Recipes
 
@@ -84,13 +83,13 @@ generated the required covariance/conditionality structure.
 Tables oftentimes do not live in isolation; rather they live with
 implicit or explicit relationships with other tables. In these cases,
 when constructing synthetic or synthesized data, the tables cannot be
-created independently of eachother. Thus we require a way of
-implementing, *before the data construction step* these
+created independently of each other. Thus we require a way of
+implementing, *before the data construction step*, these
 relationships. Relational databases do this via schema, but this is
 focused on data storage, rather than its construction. 
 
 In the context of the construction of interrelated tables, we define
-the *scaffold table* for a to-be-constructed dependant table --- in
+the *scaffold table* for a to-be-constructed dependent table --- in
 our formulation one that once constructed, will have a foreign key
 relationship with another already existing table --- as a table which
 contains the foreign key values and, optionally any other values from
@@ -101,7 +100,9 @@ be unique, as they would generally be in the foreign table, and that not all
 of the values for the key present in the foreign table need appear in the
 scaffold table, as seen below.
 
-![](./scaffold_figure.png)
+```{r, echo = FALSE}
+knitr::include_graphics("scaffold_figure.png")
+```
 
 We define a *scaffolding join recipe* as a recipe which creates the
 *scaffold table* for a prospective data table given a collection
@@ -131,7 +132,7 @@ This newly dimensioned *scaffold table* is intended to be used as a
 starting point for synthesizing the remaining desired variables using
 a table recipe.
 
-### ConstrMissingness Recipes
+### Constructing Missingness Recipes
 
 A missingness recipe is a recipe similar to a table recipe, the
 differences being that there is no `dependencies` column and the
@@ -139,7 +140,7 @@ differences being that there is no `dependencies` column and the
 length equal to the number of rows in the synthesized data, with
 `TRUE` indicating missingness. This function will be called and the
 resulting missingness injected, in order, so non-independent
-missingness accross columns is achievable if desired.
+missingness across columns is achievable if desired.
 
 ## Constructing Data with Recipes
 
@@ -160,6 +161,7 @@ Here we define a recipe for "sillydata", which has 3 variables, `ID`,
 ```{r}
 library(respectables)
 library(dplyr)
+
 keysize <- function(n, .df, ...) {
     levmean <- ifelse(.df$STUFFLEVEL == "high", 50, 20)
     rnorm(nrow(.df), mean = levmean, sd = 15)
@@ -176,13 +178,17 @@ head(sillydata)
 
 We can see that the conditional distribution worked by plotting the data densities
 for each `STUFFLEVEL` value
+
 ```{r}
 library(ggplot2)
+
 mu <- sillydata %>% group_by(STUFFLEVEL) %>% summarize(grp.mean = mean(KEYSIZE))
-p<-ggplot(sillydata, aes(x=KEYSIZE, color=STUFFLEVEL)) +
-  geom_density()+
+
+p <- ggplot(sillydata, aes(x=KEYSIZE, color=STUFFLEVEL)) +
+  geom_density() 
   geom_vline(data=mu, aes(xintercept=grp.mean, color=STUFFLEVEL),
              linetype="dashed")
+
 p
 ```
 
@@ -195,10 +201,6 @@ This process does the following:
   - This process is repeated until all rows have been applied or until
     a full pass through the remaining rows results in no rows being
     applied.
-- Finally, the synthesized data are reorderd to match the order the
+- Finally, the synthesized data are reordered to match the order the
   variables appeared in the recipe (with `df` prepended if it was not
-  `NULL`
-  
-  
-
-
+  `NULL`)
