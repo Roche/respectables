@@ -1,0 +1,20 @@
+Package: respectables
+Type: Package
+Title: Create Relationally-Specified Multi-Table Datasets
+Authors@R: c(
+	   person("Gabriel", "Becker", email="gabembecker@gmail.com", role = c("aut", "cre")))
+Description: This package provides a general framework and utility functions for
+	     simulating or synthesizing database-like multiple-table datasets. This is
+	     done by defining and then applying data recipes, which support the simulation
+	     or derivation of multiple variables jointly and/or conditional on the value
+	     of other already existing or recipe-specified variables. It also supports
+	     the simulation or augmentation of data which encodes a 1-to-many relationship
+	     with a foreign-key in an existing table.
+Version: 0.0.1
+License: Artistic-2.0
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+Depends: methods
+Imports: stats
+Suggests: tinytest,
+	  tibble
