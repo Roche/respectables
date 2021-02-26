@@ -102,7 +102,10 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
     ## put them in the order they appear in the recipe, this ultimately may not be what we want
     patdf <- patdf[,c(names(df), unlist(recipe$variables))]
     if(!is.null(recipe$keep)) {
-        keep <- c(df_keepcols, unlist(recipe$keep))
+        keep <- c(df_keepcols, unlist(lapply(seq_len(NROW(recipe)),
+                                             function(i) {
+                                   rep(recipe$keep[[i]], length.out = length(recipe$variables[[i]]))
+                                   })))
         stopifnot(length(keep) == ncol(patdf))
         patdf[, keep, drop = FALSE]
     }

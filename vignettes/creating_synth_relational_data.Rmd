@@ -160,17 +160,29 @@ Here we define a recipe for "sillydata", which has 3 variables, `ID`,
 
 ```{r}
 library(respectables)
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 
 keysize <- function(n, .df, ...) {
     levmean <- ifelse(.df$STUFFLEVEL == "high", 50, 20)
     rnorm(nrow(.df), mean = levmean, sd = 15)
 }
 
+acct_dates <- function(n, firstopen, lastclose = Sys.Date(), p_closed = .15) {
+    starts <- rand_posixct(n = n, start = firstopen, end = lastclose)
+    ends <- rand_posixct(n = n, start = starts, end = lastclose)
+    if(p_closed > 0) { 
+        nainds <- sample(seq_len(n), n - floor(n * p_closed), replace = FALSE)
+        ends[nainds] <- NA
+    }
+    data.frame(ACCT_OPEN=starts, ACCT_CLOSED=ends)
+}
+
+acctdate_vars <- c("ACCT_OPEN", "ACCT_CLOSED")
 recipe <- tribble(~variables, ~dependencies, ~func, ~func_args, ~keep,
                   "ID", no_deps, "subjid_func", list(prefix="ID", sep=""), TRUE,
                   "STUFFLEVEL", no_deps, sample_fct, list(x = c("high", "low")), TRUE,
-                  "KEYSIZE", "STUFFLEVEL", "keysize", NULL, TRUE)
+                  "KEYSIZE", "STUFFLEVEL", "keysize", NULL, TRUE,
+                  acctdate_vars, no_deps, "acct_dates", list(firstopen = "2015-01-01", lastclose = Sys.Date()), TRUE)
 
 sillydata <- gen_table_data(N = 500, recipe = recipe)
 head(sillydata)
@@ -180,7 +192,7 @@ We can see that the conditional distribution worked by plotting the data densiti
 for each `STUFFLEVEL` value
 
 ```{r}
-library(ggplot2)
+suppressPackageStartupMessages(library(ggplot2))
 
 mu <- sillydata %>% group_by(STUFFLEVEL) %>% summarize(grp.mean = mean(KEYSIZE))
 
@@ -204,3 +216,76 @@ This process does the following:
 - Finally, the synthesized data are reordered to match the order the
   variables appeared in the recipe (with `df` prepended if it was not
   `NULL`)
+
+
+Now suppose that we want to create another dataset where each of our ids from `sillydata` correspond
+with some number of "purchases". We will do this by creating a *scaffold join recipe*
+
+```{r}
+scaffolder <- rand_per_key("ID", mincount = 0, maxcount = 5, prop_present = 1)
+sjrecipe <- tribble(~foreign_tbl, ~foreign_key, ~func, ~func_args,
+                    "sillydata", "ID", "scaffolder", list())
+
+## this function generates buy dates  and makes sure BUYIDs are
+## sequential globally and BUYDATEs (and thus BUYIDS) are
+## sequential within each ID
+##
+## Each purchase is guaranteed to be between the account's
+## start and end date
+buydate_func <- function(n, .df, end = Sys.time()) {
+    n <- nrow(.df)
+    starts <- .df$ACCT_OPEN
+    ends <- .df$ACCT_CLOSED
+    ends[is.na(end)] <- end
+    dates <- rand_posixct(start = starts, end = ends, n = n)
+    ids <- .df$ID
+    odates <- order(ids, dates)
+    revit <- order(order(dates))
+    
+    toret <- data.frame(BUYID = seq_len(n)[revit], BUYDATE = dates, stringsAsFactors = FALSE)
+    toret[odates,]
+}
+
+## lookup table for products and when they were available for purchase
+products <- tribble(~PRODUCTID, ~DESC, ~AVAIL_ST, ~AVAIL_END,
+                    "PROD1", "Doodad", "2010-01-01", Sys.time(),
+                    "PROD2", "HLight Fluid", "2010-01-01", Sys.time(),
+                    "PROD3", "Mcguffin", "2017-01-01", as.POSIXct("2017-12-31"),
+                    "PROD4", "Spanner", "2010-01-01", Sys.time(),
+                    "PROD5", "Thingbat", "2015-03-03", Sys.time(),
+                    "PROD6", "Thingbat v2", "2018-03-03", Sys.time())
+
+
+prodcols <- c("PRODUCTID", "DESC")
+
+## note this is written inefficiently for illustrative purposes
+## doing this efficiently is possible but much more complicated
+##
+## for each purchase, grab the BUYDATE and lookup which
+## products were available at that time, then sample from
+## those to see what was purchased.
+prods_func <- function(n, .df) {
+    n <- NROW(.df)
+    BUYDATE <- .df$BUYDATE
+    pstarts <- as.POSIXct(products$AVAIL_ST)
+    pends <- products$AVAIL_END
+    rows <- lapply(BUYDATE,
+                   function(bdt) {
+        pids <- products$PRODUCTID[pstarts <= bdt & bdt <= pends]
+        bought <- sample(pids, 1)
+        products[products$PRODUCTID==bought,]
+    })
+
+    do.call(rbind, rows)[,prodcols]
+}
+
+## The recipe for the purchases dataset
+buys_rec <- tribble(~variables, ~dependencies, ~func, ~func_args, ~keep,
+                    c("BUYID", "BUYDATE"), c("ID", acctdate_vars), "buydate_func", NULL, TRUE,
+                      prodcols, "BUYDATE", "prods_func", NULL, TRUE) 
+
+## creat the dataset based ont he scaffolding join recipe and our
+## already created sillydata dataset
+buysdf <- gen_reljoin_table(sjrecipe, buys_rec, db = list(sillydata = sillydata))
+head(buysdf)
+```

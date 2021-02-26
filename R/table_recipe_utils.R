@@ -42,7 +42,7 @@ rep_n <- function(val, n, ...) rep(val, n)
 seq_n <- function(n, ...) 1:n
 
 #' Generate sequence of "subject id"s
-#' @param n numeric(1). number of ids to generate
+#' @param n numeric(1). number of ids to generate. Values will be padded with leading 0s so all resulting ids have equal width
 #' @param prefix character(1). Prefix to prepend to the generated numeric ids. Defaults to \code{"id"}
 #' @param suffix character(1). Suffix to append to generated ids. Defautls to \code{NULL} (no suffix).
 #' @param sep character(1). String to use as separator when combining \code{prefix}, number, and \code{suffix}.
@@ -51,7 +51,8 @@ seq_n <- function(n, ...) 1:n
 #' subjid_func(5)
 #' @export
 subjid_func <- function(n, prefix = "id", suffix = NULL, sep = "-") {
-    id <- as.character(seq_len(n))
+    ndigits <- ceiling(log(n, 10))
+    id <- formatC(seq_len(n), width = ndigits, flag=0)
     if(any(nzchar(prefix)))
         id <- paste(prefix, id, sep = sep)
     if(any(nzchar(suffix)))
@@ -76,13 +77,22 @@ rand_posixct <- function( start, end,
                          multiplier = if(is(start, "Date")) secs_per_day else 1,
                          n = max(length(start), length(end)))
  {
+     if(is.character(start))
+         start <- as.POSIXct(start)
+
+     if(!is(end, class(start)))
+         end <- as.POSIXct(end)
      ## assuming this is fixed.
      if(length(max_duration_secs) > 1)
          max_duration_secs <- max_duration_secs[1]
 
-     if(!is.null(max_duration_secs) && anyNA(end)) {
+     if(anyNA(end)) {
          inds <- which(is.na(end))
-         end[inds] <- start[inds] + max_duration_secs/multiplier
+         if(!is.null(max_duration_secs))
+             vals <- start[inds] + max_duration_secs/multiplier
+         else
+             vals <- Sys.time()
+         end[inds] <- vals
      }
 
      ## note floor want last possible value to be ~ as likely as the rest
