@@ -7,7 +7,7 @@
 subjid_func(n, prefix = "id", suffix = NULL, sep = "-")
 }
 \arguments{
-\item{n}{numeric(1). number of ids to generate}
+\item{n}{numeric(1). number of ids to generate. Values will be padded with leading 0s so all resulting ids have equal width}
 
 \item{prefix}{character(1). Prefix to prepend to the generated numeric ids. Defaults to \code{"id"}}
 

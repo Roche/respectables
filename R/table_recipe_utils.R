@@ -1,6 +1,8 @@
-pct_orig <- "1970-01-01"
-secs_per_year <- 31556952
-secs_per_day <- 60*60*24
+## Helper Utilities related to generating variables in a single table go here
+##
+## See also:
+## scaffold_join_utils.R - for utilities for defining relationships between tables
+## missingness_utils.R - for utilities for defining missingness content/patterns
 
 
 #' Create a factor with random elements of x
@@ -61,6 +63,15 @@ subjid_func <- function(n, prefix = "id", suffix = NULL, sep = "-") {
 }
 
 
+#' @rdname rand_dtm
+#' @export
+pct_orig <- "1970-01-01"
+#' @export
+#' @rdname rand_dtm
+secs_per_year <- 31556952#
+#' @export
+#' @rdname rand_dtm
+secs_per_day <- 60*60*24
 
 #' Generate a sample of random datetimes
 #'
@@ -72,6 +83,7 @@ subjid_func <- function(n, prefix = "id", suffix = NULL, sep = "-") {
 #' @param n numeric. Length of sample. Default to max of \code{length(start)} and \code{length(end)}.
 #' @return A \code{POSIXct} vector of datetimes.
 #' @export
+#' @rdname rand_dtm
 rand_posixct <- function( start, end,
                          max_duration_secs = NULL,
                          multiplier = if(is(start, "Date")) secs_per_day else 1,
@@ -80,7 +92,7 @@ rand_posixct <- function( start, end,
      if(is.character(start))
          start <- as.POSIXct(start)
 
-     if(!is(end, class(start)))
+     if(!any(vapply(class(start), function(x) inherits(end, x), NA)))
          end <- as.POSIXct(end)
      ## assuming this is fixed.
      if(length(max_duration_secs) > 1)
