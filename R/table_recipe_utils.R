@@ -17,11 +17,15 @@
 #'
 #' @return a factor of length N
 #'
+#' @export
+#' @rdname samps
+#'
 #' @examples
 #' sample_fct(letters[1:3], 10)
 #' sample_fct(iris$Species, 10)
-#' @export
-#' @rdname samps
+#'
+#' rep_n("aaa", 5)
+#'
 sample_fct <- function(x, n, ...) { # nolint
   stopifnot(is_numeric_single(n))
 
