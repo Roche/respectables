@@ -12,7 +12,7 @@ jobs:
       - checkout:
           path: pkgsource
       - run:
-          name: "Install tinytest"]
+          name: "Install tinytest"
 	  command: R --vanilla -e "install.packages('tinytest')"
       - run:
           name: "Build R package"
