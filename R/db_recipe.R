@@ -11,9 +11,9 @@
 #' @return An object representing the collection of recipes corresponding
 #' this single table. Currently a named list.
 #' @export
-
+#' @import methods
 table_spec <- function(data_rec, scaffold_rec = NULL, missing_rec = NULL) {
-    list(data = data_rec, scaffold = scaffod_rec, missing = missing_rec)
+    list(data = data_rec, scaffold = scaffold_rec, missing = missing_rec)
 }
 
 
@@ -28,7 +28,7 @@ DBRecipeBook = function(..., specs = list(...)) {
     if(is.null(names(specs)))
         stop("when specifying the specs list directly it must be a named list.")
 
-    nms <- name(specs)
+    nms <- names(specs)
     ftbs <- sapply(specs, function(sp) if(is.null(sp$scaffold)) "" else sp[["scaffold"]][["foreign_tbl"]])
     new("DBRecipeBook", tablespecs = specs, dep_network = data.frame(table = nms, table_dep = ftbs, stringsAsFactors = FALSE))
 }

@@ -10,11 +10,15 @@ Description: This package provides a general framework and utility functions for
 	     of other already existing or recipe-specified variables. It also supports
 	     the simulation or augmentation of data which encodes a 1-to-many relationship
 	     with a foreign-key in an existing table.
-Version: 0.0.1
+Version: 0.0.2
 License: Artistic-2.0
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 Copyright: F. Hoffmann-La Roche Ltd
-Depends: methods
-Imports: stats
-Suggests: tibble
+Imports: stats,
+	 methods
+Suggests: tibble,
+	  knitr,
+	  dplyr,
+	  ggplot2
+VignetteBuilder: knitr

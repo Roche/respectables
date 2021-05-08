@@ -16,6 +16,8 @@ no_deps <- character()
 #' @param miss_recipe tibble. A recipe for generating missingness positions, or \code{NULL} (the default).
 
 #' @param df data.frame/tibble. Existing partial data which new variables should be added to, or \code{NULL} (the default).
+#' @param df_keepcols logical. which columns from \code{df} should be retained in the resulting
+#' dataset (by position). Defaults to all columns present in \code{df}.
 #'
 #' @details
 #'
