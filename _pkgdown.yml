@@ -1,4 +1,4 @@
-url: https://pages.github.roche.com/NEST/random.cdisc.data
+url: https://github.com/Roche/respectables
 
 template:
   params:
@@ -7,34 +7,23 @@ template:
 navbar:
   right:
     - icon: fa-github
-      href: https://github.roche.com/NEST/random.cdisc.data
+      href: https://github.com/Roche/respectables
 
 reference:
 
   - title: Synthetic Relational Data Framework
-    desc: These functions define the core framework for synthesizing data based on recipes
+    desc: This package provides a general framework and utility functions for simulating or synthesizing database-like multiple-table datasets
     contents:
-      - gen_table_data
       - gen_reljoin_table
-      - gen_missingness
-
-  - title: CDISC Data Recipes
-    desc: These data recipes define instructions for synthesizing artificial CDISC datasets
-    contents:
-      - adsl_recipe
-      - tte_rel_join_recipe
-      - tte_table_recipe
-
-  - title: Table Recipe Utility Functions
-    desc: These functions are provided to do standard things required by many synthetic data table recipes
-    contents:
-      - sample_fct
-      - sample_yn
+      - gen_table_data
+      - inject_nas
+      - lookup_fun
+      - miss_as_block
+      - miss_at_random
+      - rand_atm
+      - reljoin_funcs
+      - samps
+      - sentinelS
       - subjid_func
-      - rand_posixct
-
-  - title: Relational-Join Recipe Utility Functions
-    desc: These functions are provided to do standard things required by many relational join recipes
-    contents:
-      - rep_per_key
-      - rand_per_key
+      - table_sepc
+      - validate_recipe_deps

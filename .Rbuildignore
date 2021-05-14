@@ -3,3 +3,6 @@
 ^_pkgdown.yml$
 ^.lintr$
 ^.circleci$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
