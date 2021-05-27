@@ -70,6 +70,28 @@ jobs:
           path: docs
           destination: pkgdown
 
+  docs-deploy:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - run:
+          name: Disable jekyll builds
+          command: touch docs/.nojekyll
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "publisher@roche.com"
+            git config user.name "Publisher Bot"
+            perl -p -i -e 's/docs//g' .gitignore
+      - add_ssh_keys:
+          fingerprints:
+            - "24:54:53:63:6c:4a:1f:7a:ad:1c:93:82:5b:85:e3:3e"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] GH Docs publish `date`" --dist docs/
+
   TODOs:
     docker:
       - image: cimg/base:2020.01
@@ -91,6 +113,12 @@ workflows:
       - pkgdown:
           requires:
             - roxygen
+      - docs-deploy:
+          requires:
+            - pkgdown
+          filters:
+            branches:
+              only: master
       - build_check_install:
           package: respectables
           requires:
