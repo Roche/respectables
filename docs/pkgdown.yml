@@ -1,0 +1,10 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  creating_synth_relational_data: creating_synth_relational_data.html
+last_built: 2021-05-19T15:45Z
+urls:
+  reference: https://github.com/Roche/respectables/reference
+  article: https://github.com/Roche/respectables/articles
+
