@@ -1,4 +1,4 @@
-name: Build and publish package docs
+name: Docs
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 
 jobs:
   pkgdown:
+    name: Generate
     runs-on: macOS-latest
     steps:
       - name: Checkout repo

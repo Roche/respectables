@@ -10,6 +10,7 @@ on:
 
 jobs:
   lint:
+    name: Lint codebase
     runs-on: macOS-latest
     steps:
       - name: Checkout repo
@@ -42,6 +43,6 @@ jobs:
       - name: Install package
         run: R CMD INSTALL .
 
-      - name: Lint
+      - name: Run lintr
         run: lintr::lint_package()
         shell: Rscript {0}
