@@ -69,7 +69,7 @@ jobs:
       - name: Build R package
         run: |
           R CMD build .
-          echo "::set-env name=PKGBUILD::$(echo *.tar.gz)"
+          echo "PKGBUILD=$(echo *.tar.gz)" >> $GITHUB_ENV
         shell: bash
 
       - name: Install R package
