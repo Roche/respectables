@@ -1,0 +1,36 @@
+name: ROxygen check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  roxygen:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
+
+      - name: Run ROxygen2
+        run: roxygen2::roxygenize('.', roclets = c('rd', 'collate', 'namespace'))
+        shell: Rscript {0}
+
+      - name: Check if ROxygen comments are up-to-date
+        run: |
+          if [[ -z $(git status -s) ]]
+          then {
+            echo "Manuals are not upto date with roxygen comments"
+            echo "Please rerun roxygen2::roxygenize('.', roclets = c('rd', 'collate', 'namespace'))"
+            exit 1
+          }
+          else {
+            echo "manuals are upto date with roxygen comments"
+          }
+          fi
