@@ -20,5 +20,6 @@ Imports: stats,
 Suggests: tibble,
 	  knitr,
 	  dplyr,
-	  ggplot2
+	  ggplot2,
+	  rmarkdown
 VignetteBuilder: knitr
