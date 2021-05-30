@@ -10,7 +10,6 @@ on:
 
 jobs:
   man-pages:
-    if: startsWith(github.event.comment.body, '/command /roxygen')
     name: Manual pages check
     runs-on: macOS-latest
 
