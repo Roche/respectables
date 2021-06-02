@@ -12,7 +12,7 @@
 # expect_error(validate_recipe_deps(badrec2), "Unable to generate some dependent variables: CDEP1, CDEP2")
 #
 # badrec3 <- tibble(variables = list("REAL", character()), list(noop_fun, noop_fun), list(NULL, NULL))
-# expect_error(validate_recipe_deps(badrec3), "Bad variable specification")
+# s
 # badrec4 <- rbind(badrec3[1,], badrec3[1,])
 # expect_error(validate_recipe_deps(badrec4), "Repeated variable")
 #
@@ -22,5 +22,8 @@
 # goodrec2 <- tribble(~variables, ~dependencies, ~func, ~func_args, ~keep,
 #                    "VAR1", no_deps, seq_n, NULL, TRUE)
 #
+# tribble(~variables, ~dependencies, ~func, ~func_args, ~keep)
 #
-#
+# result_id <- subjid_func(5, prefix = "p", suffix = "x")[4]
+# expect_id <- "p-4-x"
+# expect_identical(result_id, expect_id)
