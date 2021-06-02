@@ -65,7 +65,7 @@ jobs:
       - checkout
       - run:
           name: "create pkgdown website"
-          command: R -e 'pkgdown::build_site(".", devel = TRUE)'
+          command: R -e 'pkgdown::build_site(".", devel = FALSE)'
       - store_artifacts:
           path: docs
           destination: pkgdown
