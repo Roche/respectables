@@ -40,7 +40,6 @@ jobs:
       - store_test_results:
           path: << parameters.package >>.Rcheck/tests
 
-
   roxygen:
     docker:
       - image: rocker/tidyverse:3.6.2
@@ -58,6 +57,7 @@ jobs:
             else
               echo "manuals are upto date with roxygen comments"
             fi
+
   pkgdown:
     docker:
       - image: rocker/tidyverse:3.6.2
@@ -65,10 +65,13 @@ jobs:
       - checkout
       - run:
           name: "create pkgdown website"
-          command: R -e 'pkgdown::build_site(".", devel = TRUE)'
+          command: R -e 'pkgdown::build_site(".", devel = FALSE)'
       - store_artifacts:
           path: docs
           destination: pkgdown
+      - persist_to_workspace:
+          root: docs
+          paths: ./
 
   TODOs:
     docker:
@@ -82,6 +85,29 @@ jobs:
           path: TODOs.txt
           destination: TODOs.txt
 
+  docs-publish:
+    # Publish docs to GitHub Pages
+    docker:
+      - image: node:12
+    steps:
+      - checkout
+      - attach_workspace:
+          at: docs
+      - run:
+          name: Disable jekyll builds
+          command: touch docs/.nojekyll
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.2.0
+            git config user.email "circleci@example.com"
+            git config user.name "circleci-build"
+      - add_ssh_keys:
+          fingerprints:
+            - "82:e1:20:c6:ae:43:b2:12:6c:ad:1f:e0:24:40:d5:8d"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] Publish GiHub Pages" --dist docs/
 
 workflows:
   version: 2
@@ -96,3 +122,9 @@ workflows:
           requires:
             - roxygen
       - TODOs
+      - docs-publish:
+          requires:
+            - pkgdown
+          filters:
+            branches:
+              only: master
