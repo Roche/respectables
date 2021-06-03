@@ -41,7 +41,7 @@ jobs:
 
       - name: Run R CMD Check
         run: R CMD check --no-manual ${{ env.PKGBUILD }} --output check
-        shell: Rscript {0}
+        shell: bash
 
       - name: Upload check results
         if: failure()
