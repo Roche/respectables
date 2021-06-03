@@ -10,35 +10,20 @@ on:
 
 jobs:
   build-install-check:
-    runs-on: ${{ matrix.config.os }}
-
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.config.image }}:${{ matrix.config.tag }}
+    name: ${{ matrix.config.image }}, version ${{ matrix.config.tag }}
     strategy:
       fail-fast: false
       matrix:
         config:
-          #- {os: windows-latest, r: 'release'}
-          - {os: macOS-latest, r: 'release'}
-          #- {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-          #- {os: ubuntu-20.04, r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-
-    env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
+          - {image: rocker/tidyverse, tag: '3.6.3'}
+          - {image: rocker/tidyverse, tag: '4.1.0'}
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v1
-        with:
-          r-version: ${{ matrix.config.r }}
-          crayon.enabled: "TRUE"
-
-      - name: Setup Pandoc
-        uses: r-lib/actions/setup-pandoc@v1
 
       - name: Query dependencies
         run: |
@@ -54,14 +39,6 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-
       - name: Install dependencies
         run: remotes::install_cran(pkgs = c("rcmdcheck", "tinytest", "knitr"))
         shell: Rscript {0}
@@ -74,16 +51,15 @@ jobs:
 
       - name: Install R package
         run: R CMD INSTALL ${{ env.PKGBUILD }}
+        shell: bash
 
       - name: Run R CMD Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual"), error_on = "warning", check_dir = "check")
+        run: R CMD check --no-manual ${{ env.PKGBUILD }} --output check
         shell: Rscript {0}
 
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          name:  ${{ matrix.config.image }}:${{ matrix.config.tag }}-results
           path: check
