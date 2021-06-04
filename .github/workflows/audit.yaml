@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build-install-check:
+  audit:
     runs-on: ubuntu-latest
     container:
       image: rocker/tidyverse:4.1.0

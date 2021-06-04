@@ -1,0 +1,12 @@
+name: License Report
+description: Brief license report of a package's dependencies
+inputs:
+  directory:
+    description: Package's root directory
+    required: false
+    default: '.'
+runs:
+  using: 'docker'
+  image: './Dockerfile'
+  args:
+    - ${{ inputs.directory }}
