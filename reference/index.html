@@ -130,7 +130,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-synthetic-relational-data-framework" class="hasAnchor"><a href="#section-synthetic-relational-data-framework" class="anchor"></a>Synthetic Relational Data Framework</h2>
-          <p class="section-desc"><p>This package provides a general framework and utility functions for simulating or synthesizing database-like multiple-table datasets</p></p>
+          <p class="section-desc"><p>General framework functions for simulating or synthesizing database-like multiple-table datasets</p></p>
         </th>
       </tr>
       <tr>
@@ -148,15 +148,49 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="inject_nas.html">inject_nas()</a></code> </p>
+          <p><code><a href="sentinelS.html">no_key</a></code> <code><a href="sentinelS.html">no_deps</a></code> </p>
         </td>
-        <td><p>Apply random or systematic missingness to existing data according to recipe</p></td>
+        <td><p>Sentinel Values for Recipes</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="table_spec.html">table_spec()</a></code> </p>
+        </td>
+        <td><p>Construct a table specification from one or more recipes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="validate_recipe_deps.html">validate_recipe_deps()</a></code> </p>
+        </td>
+        <td><p>Validate recipe for circular dependencies</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-internal-functions" class="hasAnchor"><a href="#section-internal-functions" class="anchor"></a>Internal Functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="lookup_fun.html">lookup_fun()</a></code> </p>
         </td>
         <td><p>Lookup function from value you recipe column</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-helper-functions" class="hasAnchor"><a href="#section-helper-functions" class="anchor"></a>Helper Functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="inject_nas.html">inject_nas()</a></code> </p>
+        </td>
+        <td><p>Apply random or systematic missingness to existing data according to recipe</p></td>
       </tr><tr>
         
         <td>
@@ -172,21 +206,27 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="rand_dtm.html">pct_orig</a></code> <code><a href="rand_dtm.html">secs_per_year</a></code> <code><a href="rand_dtm.html">secs_per_day</a></code> <code><a href="rand_dtm.html">rand_posixct()</a></code> </p>
+        </td>
+        <td><p>Generate a sample of random datetimes</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="reljoin_funcs.html">rep_per_key()</a></code> <code><a href="reljoin_funcs.html">rand_per_key()</a></code> </p>
         </td>
         <td><p>Convenience helper functions for defining relational-join recipes</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="subjid_func.html">subjid_func()</a></code> </p>
+          <p><code><a href="samps.html">sample_fct()</a></code> <code><a href="samps.html">sample_yn()</a></code> <code><a href="samps.html">rep_n()</a></code> <code><a href="samps.html">seq_n()</a></code> </p>
         </td>
-        <td><p>Generate sequence of "subject id"s</p></td>
+        <td><p>Create a factor with random elements of x</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="validate_recipe_deps.html">validate_recipe_deps()</a></code> </p>
+          <p><code><a href="subjid_func.html">subjid_func()</a></code> </p>
         </td>
-        <td><p>Validate recipe for circular dependencies</p></td>
+        <td><p>Generate sequence of "subject id"s</p></td>
       </tr>
     </tbody>
     </table>
@@ -196,6 +236,8 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-synthetic-relational-data-framework">Synthetic Relational Data Framework</a></li>
+      <li><a href="#section-internal-functions">Internal Functions</a></li>
+      <li><a href="#section-helper-functions">Helper Functions</a></li>
     </ul>
   </div>
 </div>
