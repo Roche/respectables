@@ -12,18 +12,26 @@ navbar:
 reference:
 
   - title: Synthetic Relational Data Framework
-    desc: This package provides a general framework and utility functions for simulating or synthesizing database-like multiple-table datasets
+    desc: General framework functions for simulating or synthesizing database-like multiple-table datasets
     contents:
       - gen_reljoin_table
       - gen_table_data
-      - inject_nas
+      - no_key
+      - table_spec
+      - validate_recipe_deps
+
+  - title: Internal Functions
+    desc:
+    contents:
       - lookup_fun
+
+  - title: Helper Functions
+    desc:
+    contents:
+      - inject_nas
       - miss_as_block
       - miss_at_random
-      - rand_atm
+      - pct_orig
       - reljoin_funcs
-      - samps
-      - sentinelS
+      - sample_fct
       - subjid_func
-      - table_sepc
-      - validate_recipe_deps
