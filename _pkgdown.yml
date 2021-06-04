@@ -1,4 +1,4 @@
-url: https://github.com/Roche/respectables
+url: https://roche.github.io/respectables/
 
 template:
   params:
@@ -12,18 +12,13 @@ navbar:
 reference:
 
   - title: Synthetic Relational Data Framework
-    desc: General framework functions for simulating or synthesizing database-like multiple-table datasets
+    desc:
     contents:
       - gen_reljoin_table
       - gen_table_data
       - no_key
       - table_spec
       - validate_recipe_deps
-
-  - title: Internal Functions
-    desc:
-    contents:
-      - lookup_fun
 
   - title: Helper Functions
     desc:
@@ -35,3 +30,8 @@ reference:
       - reljoin_funcs
       - sample_fct
       - subjid_func
+
+  - title: Internal Functions
+    desc:
+    contents:
+      - lookup_fun
