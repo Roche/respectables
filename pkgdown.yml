@@ -3,6 +3,6 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles: []
 urls:
-  reference: https://github.com/Roche/respectables/reference
-  article: https://github.com/Roche/respectables/articles
+  reference: https://roche.github.io/respectables//reference
+  article: https://roche.github.io/respectables//articles
 
