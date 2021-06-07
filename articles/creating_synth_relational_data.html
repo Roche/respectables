@@ -82,7 +82,7 @@
       <h1>Specifying, Simulating and Synthesizing Relational Data in R</h1>
                         <h4 class="author">Gabriel Becker</h4>
             
-            <h4 class="date">2021-06-06</h4>
+            <h4 class="date">2021-06-07</h4>
       
       
       <div class="hidden name"><code>creating_synth_relational_data.Rmd</code></div>
@@ -191,13 +191,13 @@
 <a class="sourceLine" id="cb1-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb1-26" data-line-number="26">sillydata &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/gen_table_data.html">gen_table_data</a></span>(<span class="dt">N =</span> <span class="dv">500</span>, <span class="dt">recipe =</span> recipe)</a>
 <a class="sourceLine" id="cb1-27" data-line-number="27"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(sillydata)</a></code></pre></div>
-<pre><code>##      ID STUFFLEVEL    KEYSIZE           ACCT_OPEN ACCT_CLOSED
-## 1 ID001       high 59.1428060 2018-10-15 03:22:36        &lt;NA&gt;
-## 2 ID002       high 46.7552960 2018-07-10 10:13:07        &lt;NA&gt;
-## 3 ID003       high 43.9714680 2016-10-25 23:52:48        &lt;NA&gt;
-## 4 ID004       high 57.2222962 2015-10-03 02:16:31        &lt;NA&gt;
-## 5 ID005        low -0.4499837 2017-03-06 11:31:04        &lt;NA&gt;
-## 6 ID006        low -2.8977861 2017-03-01 20:22:06        &lt;NA&gt;</code></pre>
+<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN         ACCT_CLOSED
+## 1 ID001        low 17.82370 2018-04-02 20:59:58                &lt;NA&gt;
+## 2 ID002       high 37.61383 2015-01-12 09:59:09                &lt;NA&gt;
+## 3 ID003       high 50.79565 2015-08-23 04:18:37                &lt;NA&gt;
+## 4 ID004        low 19.98480 2018-01-14 22:27:44                &lt;NA&gt;
+## 5 ID005       high 53.43294 2017-06-01 08:27:57                &lt;NA&gt;
+## 6 ID006        low 31.54773 2021-03-23 10:38:10 2021-05-04 13:47:35</code></pre>
 <p>We can see that the conditional distribution worked by plotting the data densities for each <code>STUFFLEVEL</code> value</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
@@ -291,19 +291,19 @@
 <a class="sourceLine" id="cb6-65" data-line-number="65">buysdf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/gen_reljoin_table.html">gen_reljoin_table</a></span>(sjrecipe, buys_rec, <span class="dt">db =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">sillydata =</span> sillydata))</a>
 <a class="sourceLine" id="cb6-66" data-line-number="66"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(buysdf)</a></code></pre></div>
 <pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN ACCT_CLOSED BUYID
-## 4 ID001       high 59.14281 2018-10-15 03:22:36        &lt;NA&gt;   431
-## 3 ID001       high 59.14281 2018-10-15 03:22:36        &lt;NA&gt;   520
-## 5 ID001       high 59.14281 2018-10-15 03:22:36        &lt;NA&gt;   636
-## 2 ID001       high 59.14281 2018-10-15 03:22:36        &lt;NA&gt;   716
-## 1 ID001       high 59.14281 2018-10-15 03:22:36        &lt;NA&gt;  1232
-## 6 ID002       high 46.75530 2018-07-10 10:13:07        &lt;NA&gt;   378
-##               BUYDATE PRODUCTID         DESC
-## 4 2019-06-02 02:26:33     PROD5     Thingbat
-## 3 2019-10-17 13:48:58     PROD2 HLight Fluid
-## 5 2020-03-02 22:20:15     PROD5     Thingbat
-## 2 2020-05-28 16:55:04     PROD2 HLight Fluid
-## 1 2021-06-03 21:20:03     PROD2 HLight Fluid
-## 6 2019-03-10 07:19:09     PROD5     Thingbat</code></pre>
+## 1 ID002       high 37.61383 2015-01-12 09:59:09        &lt;NA&gt;  1008
+## 5 ID004        low 19.98480 2018-01-14 22:27:44        &lt;NA&gt;   485
+## 4 ID004        low 19.98480 2018-01-14 22:27:44        &lt;NA&gt;   649
+## 2 ID004        low 19.98480 2018-01-14 22:27:44        &lt;NA&gt;   746
+## 3 ID004        low 19.98480 2018-01-14 22:27:44        &lt;NA&gt;   978
+## 8 ID005       high 53.43294 2017-06-01 08:27:57        &lt;NA&gt;   496
+##               BUYDATE PRODUCTID        DESC
+## 1 2021-01-08 06:27:27     PROD1      Doodad
+## 5 2019-05-28 11:30:43     PROD1      Doodad
+## 4 2020-01-04 10:05:31     PROD1      Doodad
+## 2 2020-04-25 16:29:55     PROD1      Doodad
+## 3 2020-12-05 09:45:19     PROD4     Spanner
+## 8 2019-06-13 04:14:26     PROD6 Thingbat v2</code></pre>
 </div>
 </div>
   </div>
