@@ -31,7 +31,12 @@ no_deps <- character()
 #' sample_fct(letters[1:3], 10)
 #' sample_fct(iris$Species, 10)
 #'
+#' sample_yn(3)
+#'
 #' rep_n("aaa", 5)
+#' rep_n(1:5, 2)
+#'
+#' seq_n(10)
 #'
 sample_fct <- function(x, n, ...) { # nolint
   stopifnot(is_numeric_single(n))
@@ -62,6 +67,8 @@ seq_n <- function(n, ...) 1:n
 #' @return sequence from 1 to \code{n}, prepended with \code{prefix}, and appended with \code{suffix}, separated by \code{sep}
 #' @examples
 #' subjid_func(5)
+#' subjid_func(3, suffix = "x")
+#'
 #' @export
 subjid_func <- function(n, prefix = "id", suffix = NULL, sep = "-") {
     ndigits <- ceiling(log(n, 10))
@@ -93,6 +100,10 @@ secs_per_day <- 60*60*24
 #' @param multiplier numeric. Used internally.
 #' @param n numeric. Length of sample. Default to max of \code{length(start)} and \code{length(end)}.
 #' @return A \code{POSIXct} vector of datetimes.
+#' @examples
+#' rand_posixct("2020-01-01", "2021-01-01", n = 2)
+#' rand_posixct(c("1995-04-01", "2000-01-01"), c("2000-04-01", "2000-01-30"))
+#'
 #' @export
 #' @rdname rand_dtm
 rand_posixct <- function( start, end,
