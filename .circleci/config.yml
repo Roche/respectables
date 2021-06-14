@@ -48,7 +48,7 @@ jobs:
       - run:
           name: "check if manuals are upto date with roxygen comments"
           command: |
-            R -e "if (file.exists("renv.lock")) renv::restore(packages = "roxygen2") else {chooseCRANmirror(ind=1L);install.packages("roxygen2")}"
+            R -e "if (file.exists('renv.lock')) renv::restore(packages = "roxygen2") else {chooseCRANmirror(ind=1L);install.packages("roxygen2")}"
             R -e "roxygen2::roxygenize('.', roclets = c('rd', 'collate', 'namespace'))"
             if [[ -z $(git status -s) ]]
             then
