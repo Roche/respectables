@@ -15,10 +15,14 @@ License: Artistic-2.0
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 Copyright: F. Hoffmann-La Roche Ltd
-Imports: stats,
+Imports:
+   stats,
 	 methods
-Suggests: tibble,
-	  knitr,
-	  dplyr,
-	  ggplot2, tinytest
-VignetteBuilder: knitr
+Suggests: 
+   tibble,
+	 knitr,
+	 dplyr,
+	 ggplot2,
+	 tinytest
+VignetteBuilder:
+   knitr
