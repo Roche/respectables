@@ -18,9 +18,21 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: |
+          if (file.exists("renv.lock")) {
+            renv::restore()
+          } else {
+            remotes::install_deps()
+          }
+        shell: Rscript {0}
+
       - name: Install package
+        if: hashFiles('.lintr') != ''
         run: R CMD INSTALL .
+        shell: bash
 
       - name: Run lintr
+        if: hashFiles('.lintr') != ''
         run: lintr::lint_package()
         shell: Rscript {0}

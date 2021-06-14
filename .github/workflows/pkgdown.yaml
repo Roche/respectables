@@ -19,8 +19,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build docs
-        run: pkgdown::build_site(".", devel = FALSE)
-        shell: Rscript {0}
+        run: R -e 'pkgdown::build_site(".", devel = FALSE)' | tee pkgdown.out
+        shell: bash
+
+      - name: Upload pkgdown output
+        uses: actions/upload-artifact@v2
+        with:
+          name: pkgdown.out
+          path: pkgdown.out
 
       - name: Upload docs for review
         if: github.ref != 'refs/heads/master' # Only during PR
