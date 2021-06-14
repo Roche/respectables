@@ -48,6 +48,7 @@ jobs:
       - run:
           name: "check if manuals are upto date with roxygen comments"
           command: |
+            R --vanilla -e "chooseCRANmirror(ind=1L);install.packages('tinytest')"
             R -e "roxygen2::roxygenize('.', roclets = c('rd', 'collate', 'namespace'))"
             if [[ -z $(git status -s) ]]
             then
