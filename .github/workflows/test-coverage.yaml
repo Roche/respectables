@@ -11,45 +11,16 @@ on:
 jobs:
   test-coverage:
     name: Coverage
-    runs-on: ubuntu-20.04
-    env:
-      RSPM: https://packagemanager.rstudio.com/cran/__linux__/bionic/latest
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    container:
+      image: rocker/tidyverse:3.6.3
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v1
-        id: install-r
-
-      - name: Install pak and query dependencies
-        run: |
-          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
-        shell: Rscript {0}
-
-      - name: Restore R package cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ${{ env.R_LIBS_USER }}/*
-            !${{ env.R_LIBS_USER }}/pak
-          key: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
-          restore-keys: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-
-
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          pak::local_system_requirements(execute = TRUE)
-          pak::pkg_system_requirements("covr", execute = TRUE)
-        shell: Rscript {0}
-
       - name: Install dependencies
-        run: |
-          pak::local_install_dev_deps(upgrade = TRUE)
-          pak::pkg_install("covr")
+        run: install.packages("covr", repos="http://cran.rstudio.com/")
         shell: Rscript {0}
 
       - name: Test coverage
