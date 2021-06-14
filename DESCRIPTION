@@ -22,5 +22,5 @@ Suggests: tibble,
 	  dplyr,
 	  ggplot2,
 	  rmarkdown,
-	  tinytest
+      tinytest
 VignetteBuilder: knitr
