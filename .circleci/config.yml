@@ -7,13 +7,16 @@ jobs:
       package:
         type: string
     docker:
-      - image: rocker/tidyverse:3.6.2
+      - image: rocker/tidyverse:4.1.0
     steps:
       - checkout:
           path: pkgsource
       - run:
-          name: "Install tinytest"
-          command: R --vanilla -e "chooseCRANmirror(ind=1L);install.packages('tinytest')"
+          name: "Install Dependencies"
+          command: |
+          R --vanilla -e "chooseCRANmirror(ind=1L);install.packages('renv')"
+          cd pkgsource
+          R -e "renv::restore(prompt=FALSE)"
       - run:
           name: "Build R package"
           command: |
