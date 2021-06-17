@@ -20,8 +20,11 @@ jobs:
       - run:
           name: "Build R package"
           command: |
-            R CMD build pkgsource
-            echo "export PKGBUILD=$(echo *.tar.gz)" >> $BASH_ENV
+          tmpfile=$mktmp
+          R --silent -e "cat(paste0('R_LIBS_USER=', renv::paths$library()), file = commandArgs(trailingOnly=TRUE), append = TRUE)" --args $tmpfile
+          #export R_LIBS_USER=$(Rscript -e "cat(renv::paths$library())")
+          R CMD build pkgsource
+          echo "export PKGBUILD=$(echo *.tar.gz)" >> $BASH_ENV
       - run:
           name: "Install R package"
           command: R CMD INSTALL ${PKGBUILD}
@@ -95,7 +98,7 @@ jobs:
       - image: node:12
     steps:
       - checkout
-      - attach_workspace:
+      - attach_workspace:export a=$(R -e "cat('abc')")
           at: docs
       - run:
           name: Disable jekyll builds
