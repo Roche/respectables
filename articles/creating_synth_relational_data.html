@@ -194,13 +194,13 @@
 <pre><code>## [1] "ID"          "STUFFLEVEL"  "KEYSIZE"     "ACCT_OPEN"   "ACCT_CLOSED"
 ## [1] "ID"          "STUFFLEVEL"  "KEYSIZE"     "ACCT_OPEN"   "ACCT_CLOSED"</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(sillydata)</a></code></pre></div>
-<pre><code>##      ID STUFFLEVEL   KEYSIZE           ACCT_OPEN         ACCT_CLOSED
-## 1 ID001        low  2.811080 2016-04-21 00:49:48                &lt;NA&gt;
-## 2 ID002        low 50.001182 2015-07-26 04:24:51 2019-07-12 04:33:41
-## 3 ID003        low  3.049715 2015-07-15 23:54:04                &lt;NA&gt;
-## 4 ID004       high 34.198571 2017-02-23 09:35:30 2020-12-21 12:42:29
-## 5 ID005        low 16.847966 2021-01-15 13:22:12                &lt;NA&gt;
-## 6 ID006       high 26.533729 2020-05-23 22:47:14                &lt;NA&gt;</code></pre>
+<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN         ACCT_CLOSED
+## 1 ID001       high 35.81611 2020-09-18 18:35:48                &lt;NA&gt;
+## 2 ID002       high 50.21808 2021-05-09 23:37:30                &lt;NA&gt;
+## 3 ID003        low 62.29862 2017-01-25 15:13:23 2020-04-01 08:29:49
+## 4 ID004        low 14.94920 2017-03-28 12:47:08                &lt;NA&gt;
+## 5 ID005       high 57.76937 2015-07-07 04:20:34                &lt;NA&gt;
+## 6 ID006        low 26.30120 2017-03-20 19:11:29 2018-08-28 20:02:48</code></pre>
 <p>We can see that the conditional distribution worked by plotting the data densities for each <code>STUFFLEVEL</code> value</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2))</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
@@ -296,13 +296,13 @@
 ## [6] "BUYID"       "BUYDATE"     "PRODUCTID"   "DESC"       
 ## [1] "ID"        "BUYID"     "BUYDATE"   "PRODUCTID" "DESC"</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(buysdf)</a></code></pre></div>
-<pre><code>##      ID BUYID             BUYDATE PRODUCTID         DESC
-## 2 ID001    76 2016-09-15 10:30:54     PROD2 HLight Fluid
-## 1 ID001    85 2016-11-01 13:22:11     PROD1       Doodad
-## 5 ID001   197 2017-11-19 14:52:03     PROD2 HLight Fluid
-## 4 ID001  1022 2021-01-27 21:26:34     PROD1       Doodad
-## 3 ID001  1241 2021-06-04 06:00:48     PROD5     Thingbat
-## 7 ID004   142 2017-05-01 15:48:44     PROD5     Thingbat</code></pre>
+<pre><code>##      ID BUYID             BUYDATE PRODUCTID        DESC
+## 1 ID001   808 2020-10-04 12:12:15     PROD5    Thingbat
+## 2 ID001   896 2020-12-30 08:31:47     PROD1      Doodad
+## 3 ID001   946 2021-02-01 19:07:33     PROD4     Spanner
+## 4 ID001  1145 2021-05-23 14:48:34     PROD6 Thingbat v2
+## 7 ID002  1119 2021-05-14 09:42:45     PROD6 Thingbat v2
+## 5 ID002  1124 2021-05-15 05:12:53     PROD4     Spanner</code></pre>
 </div>
 </div>
   </div>
