@@ -46,4 +46,9 @@ A \code{POSIXct} vector of datetimes.
 \description{
 Generates random datetimes that are, elementwise, between \code{start} and \code{end}
 }
+\examples{
+rand_posixct("2020-01-01", "2021-01-01", n = 2)
+rand_posixct(c("1995-04-01", "2000-01-01"), c("2000-04-01", "2000-01-30"))
+
+}
 \keyword{datasets}

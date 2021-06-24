@@ -9,6 +9,14 @@ no_key <- character()
 #' @export
 #' @rdname sentinelS
 no_deps <- character()
+#' @export
+#' @rdname sentinelS
+no_rec <- list()
+#' @export
+#' @rdname sentinelS
+no_args <- list()
+
+
 
 #' Generate variables in a table
 #' @param N numeric(1). Number of rows to generate. Defaults to 400, or the number of rows in \code{df} if provided.
@@ -50,8 +58,15 @@ no_deps <- character()
 gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
                            recipe,
                            df = NULL,
-                           df_keepcols = rep(TRUE, if(is.null(df)) 0 else ncol(df)),
+                           df_keepcols = if(is.null(df)) character() else names(df),
                            miss_recipe = NULL) {
+    if(!("keep" %in% names(recipe))) {
+        recipe$keep <- I(lapply(recipe$variables, function(x) rep(TRUE, length(x))))
+    }
+    ## if(length(df_keepcols) && !is.null(df)) {
+    ##     df_keepcols <- names(df)[names(df) %in% unlist(recipe$dependencies)]
+    ## }
+
     ## avoid infinite recursion since currently validate_recipe_deps calls gen_table_data
     if(N > 1 && !all(sapply(recipe$func, identical, noop_func)))
         validate_recipe_deps(recipe, seed_df = df)
@@ -73,6 +88,7 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
         vars <- indepdf$variables[[i]]
         ret <- do.call(fun, c(list(n=N), args))
     })
+
 
     patdf <- do.call(cbind.data.frame, c(if(!is.null(df)) list(df), collst))
     names(patdf) <- c(if(!is.null(df)) names(df), unlist(indepdf$variables))
@@ -104,12 +120,18 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
     ## put them in the order they appear in the recipe, this ultimately may not be what we want
     patdf <- patdf[,c(names(df), unlist(recipe$variables))]
     if("keep" %in% names(recipe)) {
-        keep <- c(df_keepcols, unlist(lapply(seq_len(NROW(recipe)),
-                                             function(i) {
-                                   rep(recipe$keep[[i]], length.out = length(recipe$variables[[i]]))
-                                   })))
-        stopifnot(length(keep) == ncol(patdf))
-        patdf[, keep, drop = FALSE]
+        keep <- c(df_keepcols,
+                  unlist(mapply(function(vars, keep) {vars[keep]},
+                                vars = recipe$variables,
+                                keep = recipe$keep,
+                                SIMPLIFY=FALSE)))
+
+                  ## unlist(lapply(seq_len(NROW(recipe)),
+                  ##                            function(i) {
+                  ##                  rep(recipe$keep[[i]], length.out = length(recipe$variables[[i]]))
+        ##              })))
+        print(keep)
+        patdf <- patdf[, keep, drop = FALSE]
     }
     if(!is.null(miss_recipe))
         patdf <- inject_nas(patdf, miss_recipe)
@@ -152,11 +174,13 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
 #'
 #' @seealso \code{\link{reljoin_funcs}}
 #' @export
-gen_reljoin_table <- function(joinrec, tblrec, miss_recipe = NULL, db) {
+gen_reljoin_table <- function(joinrec, tblrec, miss_recipe = NULL, db, keep = NA_character_) {
     fdat <- db[[joinrec$foreign_tbl]]
     func <- lookup_fun(joinrec$func[[1]])
     df <- do.call(joinrec$func[[1]], c(joinrec$func_args[[1]], list(.dbtab = fdat)))
-    tab <- gen_table_data(recipe = tblrec, df = df, miss_recipe = miss_recipe)
+    if(identical(keep, NA_character_))
+        keep <- joinrec$foreign_key
+    tab <- gen_table_data(recipe = tblrec, df = df, miss_recipe = miss_recipe, df_keepcols = keep)
     tab
 }
 
@@ -175,7 +199,7 @@ gen_reljoin_table <- function(joinrec, tblrec, miss_recipe = NULL, db) {
 #'
 #' @export
 inject_nas <- function(tbl, recipe) {
-    for(i in seq_len(nrow(recipe))) {
+    for(i in seq_len(NROW(recipe))) {
         rw <- recipe[i,]
         missfunc <- lookup_fun(rw$func[[1]])
         funcargs <- rw$func_args[[1]]
@@ -188,5 +212,106 @@ inject_nas <- function(tbl, recipe) {
         ## }
     }
     tbl
+}
+
+
+
+
+valid_cookbook <- function(recs) {
+    stopifnot(is(recs, "data.frame") &&
+              identical(names(recs),
+                        c("table", "scaff_rec", "data_rec", "na_rec")))
+    TRUE
+}
+
+#' Generate full db from a Cookbook of Recipes
+#'
+#' @param cbook tribble. Columns: table, scaff_ref, data_rec, na_rec
+#' @param db list. Named list of already existing tables
+#' @param ns named numeric. Ns for use when generating independent tables.
+#' @return A named list of tables of generated data.
+#' @export
+gen_data_db <- function(cbook, db = list(), ns = setNames(rep(500, NROW(cbook)), cbook$table)) {
+    valid_cookbook(cbook)
+    cbook$dependencies <- lapply(cbook$scaff_rec,
+                                 function(x) {
+        if(NROW(x) > 0)
+            x$foreign_tbl[[1]]
+        else
+            no_deps
+    })
+
+
+    nodep <- vapply(cbook$dependencies,
+                    function(x) identical(x, no_deps),
+                    NA)
+
+    ## do independent variables first
+    indepdf <- cbook[nodep,]
+    depdf <- cbook[!nodep,]
+
+    if(any(nodep)) {
+        indeptabs <- lapply(seq_len(nrow(indepdf)),
+                            function(i) {
+            cbrow <- indepdf[i,]
+            tname <- cbrow$table
+            gen_table_data(N = ns[tname],
+                           recipe = cbrow$data_rec[[i]],
+                           miss_recipe = cbrow$na_rec[[i]])
+        })
+        names(indeptabs) <- indepdf$table
+        db <- c(db, indeptabs)
+    }
+
+    lastnrow <- nrow(cbook) + 1 ## incase there were no indep rows because we had a seeder df
+    ## now generate variables that are contingent on other variables
+    while(NROW(depdf) > 0 & NROW(depdf) < lastnrow) {
+        ## we pass through the entire (remaining) depdf each time
+        lastnrow <- NROW(depdf)
+        for(di in 1:NROW(depdf)) {
+            if(all(depdf$dependencies[[di]] %in% names(db))) {
+                db[[ depdf$table[[di]] ]] <- gen_reljoin_table(depdf$scaff_rec[[di]],
+                                                       depdf$data_rec[[di]],
+                                                       depdf$na_rec[[di]],
+                                                       db = db)
+            }
+        }
+        donerows <- depdf$table %in% names(db)
+        ## remove rows we are now done with. if this does not remove any rows,
+        ## there is an invalid/circular dependenc
+        depdf <- depdf[!donerows,]
+    }
+    if(NROW(depdf) > 0)
+        stop(sprintf("Unable to generate some dependent variables: %s\n\t Some of these likely need to be jointly generated.",
+                     paste(unlist(depdf$table), collapse = ", ")))
+
+    if(requireNamespace("dm", quietly = TRUE)) {
+        db <- make_dm(db, cbook)
+    }
+    db
+}
+
+
+
+make_dm <- function(db, cbook) {
+    if(!requireNamespace("dm", quielty = TRUE)) {
+        stop("This requires the dm package, please install it")
+    }
+    retdm <- dm::as_dm(db)
+
+    keep <- !vapply(cbook$scaff_rec, identical, NA, y = no_rec)
+    cbook <- cbook[keep,]
+
+    for(i in seq_len(NROW(cbook))) {
+        scaff <- cbook$scaff_rec[[i]]
+        reft <- scaff$foreign_tbl
+        key <- scaff$foreign_key
+        ft <- cbook$table[[i]]
+        print(c(reft, key, ft))
+        retdm <- dm::dm_add_pk(retdm,
+                           !!reft, !!key)
+        retdm <- dm::dm_add_fk(retdm, !!ft, !!key, !!reft, !!key)
+    }
+    retdm
 }
 
