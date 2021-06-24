@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply random or systematic missingness to existing data according to recipe — inject_nas • respectables</title>
+<title>Sentry values for Recipe construction — no_deps • respectables</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Apply random or systematic missingness to existing data according to recipe — inject_nas" />
-<meta property="og:description" content="Apply random or systematic missingness to existing data according to recipe" />
+<meta property="og:title" content="Sentry values for Recipe construction — no_deps" />
+<meta property="og:description" content="Sentry values for Recipe construction" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,57 +117,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply random or systematic missingness to existing data according to recipe</h1>
+    <h1>Sentry values for Recipe construction</h1>
     
-    <div class="hidden name"><code>inject_nas.Rd</code></div>
+    <div class="hidden name"><code>no_deps.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Apply random or systematic missingness to existing data according to recipe</p>
+    <p>Sentry values for Recipe construction</p>
     </div>
 
-    <pre class="usage"><span class='fu'>inject_nas</span>(<span class='no'>tbl</span>, <span class='no'>recipe</span>)</pre>
+    <pre class="usage"><span class='no'>no_deps</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>tbl</th>
-      <td><p>data.frame/tibble. The already generated data to inject missingness into</p></td>
-    </tr>
-    <tr>
-      <th>recipe</th>
-      <td><p>tibble. A recipe for generating missingness positions</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><code>tbl</code>, with missingness injected into it as laid out by <code>recipe</code></p>
+    <p>An object of class <code>character</code> of length 0.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Unlike in data-generation recipes, the <code>func</code> column in a missingness recipe must return a logical vector of length n or  an n x k logical matrix, where n is the number of rows in <code>.df</code> and <code>k</code> is the number of variables listed in this row of the recipe. A vector is only allowed when only one variable is listed in the recipe row (ie <code>k=1</code>). <code>TRUE</code> in the return value indicates that position in the column being processed should be set to missing (<code>NA</code>), while <code>FALSE</code> indicates the value already there should remain unchanged.</p>
+    <p><code>no_deps</code> indicates no dependencies</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tibble</span>)
-<span class='no'>missrec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>variables</span> <span class='kw'>=</span> <span class='st'>"wt"</span>, <span class='kw'>func</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>function</span>(<span class='no'>.df</span>) <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>NROW</a></span>(<span class='no'>.df</span>) - <span class='fl'>3</span>))), <span class='kw'>func_args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>))
-<span class='no'>newdat</span> <span class='kw'>&lt;-</span> <span class='fu'>inject_nas</span>(<span class='no'>mtcars</span>, <span class='no'>missrec</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>newdat</span>)</div><div class='output co'>#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90    NA 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90    NA 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85    NA 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
+      <li><a href="#format">Format</a></li>
       <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

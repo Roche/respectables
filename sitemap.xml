@@ -4,6 +4,9 @@
     <loc>https://roche.github.io/respectables//index.html</loc>
   </url>
   <url>
+    <loc>https://roche.github.io/respectables//reference/gen_data_db.html</loc>
+  </url>
+  <url>
     <loc>https://roche.github.io/respectables//reference/gen_reljoin_table.html</loc>
   </url>
   <url>
@@ -20,6 +23,9 @@
   </url>
   <url>
     <loc>https://roche.github.io/respectables//reference/miss_at_random.html</loc>
+  </url>
+  <url>
+    <loc>https://roche.github.io/respectables//reference/no_deps.html</loc>
   </url>
   <url>
     <loc>https://roche.github.io/respectables//reference/rand_dtm.html</loc>
