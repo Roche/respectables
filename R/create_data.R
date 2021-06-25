@@ -130,7 +130,6 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
                   ##                            function(i) {
                   ##                  rep(recipe$keep[[i]], length.out = length(recipe$variables[[i]]))
         ##              })))
-        print(keep)
         patdf <- patdf[, keep, drop = FALSE]
     }
     if(!is.null(miss_recipe))
@@ -307,7 +306,6 @@ make_dm <- function(db, cbook) {
         reft <- scaff$foreign_tbl
         key <- scaff$foreign_key
         ft <- cbook$table[[i]]
-        print(c(reft, key, ft))
         retdm <- dm::dm_add_pk(retdm,
                            !!reft, !!key)
         retdm <- dm::dm_add_fk(retdm, !!ft, !!key, !!reft, !!key)
