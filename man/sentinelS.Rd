@@ -4,16 +4,26 @@
 \name{no_key}
 \alias{no_key}
 \alias{no_deps}
+\alias{no_rec}
+\alias{no_args}
 \title{Sentinel Values for Recipes}
 \format{
 An object of class \code{character} of length 0.
 
 An object of class \code{character} of length 0.
+
+An object of class \code{list} of length 0.
+
+An object of class \code{list} of length 0.
 }
 \usage{
 no_key
 
 no_deps
+
+no_rec
+
+no_args
 }
 \description{
 Sentinel Values for Recipes

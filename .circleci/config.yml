@@ -12,8 +12,8 @@ jobs:
       - checkout:
           path: pkgsource
       - run:
-          name: "Install tinytest"
-          command: R --vanilla -e "chooseCRANmirror(ind=1L);install.packages('tinytest')"
+          name: "Install tinytest and dm"
+          command: R --vanilla -e "chooseCRANmirror(ind=1L);install.packages(c('tinytest', 'dm'))"
       - run:
           name: "Build R package"
           command: |

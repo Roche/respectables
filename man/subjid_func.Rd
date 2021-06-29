@@ -23,4 +23,6 @@ Generate sequence of "subject id"s
 }
 \examples{
 subjid_func(5)
+subjid_func(3, suffix = "x")
+
 }

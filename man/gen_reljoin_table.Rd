@@ -4,7 +4,13 @@
 \alias{gen_reljoin_table}
 \title{Generate synthetic data relationally-linked to existing data}
 \usage{
-gen_reljoin_table(joinrec, tblrec, miss_recipe = NULL, db)
+gen_reljoin_table(
+  joinrec,
+  tblrec,
+  miss_recipe = NULL,
+  db,
+  keep = NA_character_
+)
 }
 \arguments{
 \item{joinrec}{tibble. Recipe for synthesizing core/seed data based of a foreign key present in an existing table within \code{db}}

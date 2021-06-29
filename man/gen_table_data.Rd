@@ -8,7 +8,7 @@ gen_table_data(
   N = if (is.null(df)) 400 else NROW(df),
   recipe,
   df = NULL,
-  df_keepcols = rep(TRUE, if (is.null(df)) 0 else ncol(df)),
+  df_keepcols = if (is.null(df)) character() else names(df),
   miss_recipe = NULL
 )
 }
