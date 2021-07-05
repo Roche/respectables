@@ -18,15 +18,27 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Build docs
-        run: R -e 'pkgdown::build_site(".", devel = TRUE)' | tee pkgdown.out
+      - name: Install dependencies
+        run: |
+          if (file.exists("renv.lock")) {
+            renv::restore()
+          } else {
+            options(repos = c(CRAN = "https://cloud.r-project.org/"))
+            "remotes" %in% install.packages || install.packages("remotes", upgrade = "never")
+            remotes::install_deps(dependencies = TRUE, upgrade = "never")
+          }
+        shell: Rscript {0}
+
+      - name: Install Respectables
+        run: R CMD INSTALL .
         shell: bash
 
-      - name: Upload pkgdown output
-        uses: actions/upload-artifact@v2
-        with:
-          name: pkgdown.out
-          path: pkgdown.out
+      - name: Build docs
+        run: |
+          options(repos = c(CRAN = "https://cloud.r-project.org/"))
+          "pkgdown" %in% install.packages || install.packages("pkgdown", upgrade = "never")
+          pkgdown::build_site(".", devel = TRUE)
+        shell: Rscript {0}
 
       - name: Upload docs for review
         if: github.ref != 'refs/heads/master' # Only during PR
