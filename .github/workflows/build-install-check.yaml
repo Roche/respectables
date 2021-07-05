@@ -34,7 +34,7 @@ jobs:
           if (file.exists("renv.lock")) {
             renv::restore()
           } else {
-            install.packages("remotes", upgrade = "never")
+             "remotes" %in% installed.packages() || install.packages("remotes", upgrade = "never")
             remotes::install_deps(dependencies = TRUE, upgrade = "never")
           }
         shell: Rscript {0}
