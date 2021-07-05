@@ -1,0 +1,27 @@
+name: TODOs
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  todos:
+    name: Generate TODOs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Generate TODO list
+        run: grep -R -A 2 "TODO" R/ > TODOs.txt
+        shell: bash
+
+      - name: Upload TODO list
+        uses: actions/upload-artifact@v2
+        with:
+          name: TODOs.txt
+          path: TODOs.txt

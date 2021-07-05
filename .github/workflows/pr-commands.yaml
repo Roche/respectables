@@ -1,0 +1,78 @@
+name: Commands
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  roxygenize:
+    if: startsWith(github.event.comment.body, '/command /roxygen')
+    name: Roxygenize
+    runs-on: ubuntu-latest
+    container:
+      image: rocker/tidyverse:3.6.3
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Fetch PR
+        uses: r-lib/actions/pr-fetch@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Roxygenize
+        run: roxygen2::roxygenize('.', roclets = c('rd', 'collate', 'namespace'))
+        shell: Rscript {0}
+
+      - name: Commit
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add man/\* NAMESPACE
+          git commit -m 'Document'
+
+      - name: Push
+        uses: r-lib/actions/pr-push@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  style:
+    if: startsWith(github.event.comment.body, '/command /style')
+    name: Auto-style
+    runs-on: ubuntu-latest
+    container:
+      image: rocker/tidyverse:3.6.3
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Fetch PR
+        uses: r-lib/actions/pr-fetch@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: install.packages("styler", dependencies=TRUE, repos="http://cran.rstudio.com/")
+        shell: Rscript {0}
+
+      - name: Stylize
+        run: styler::style_pkg()
+        shell: Rscript {0}
+
+      - name: Commit
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add \*.R
+          git commit -m 'Style'
+
+      - name: Push
+        uses: r-lib/actions/pr-push@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

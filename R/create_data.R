@@ -144,6 +144,7 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
 #' @param tblrec tibble. Recipe for generating the remainder of the new table, via \code{\link{gen_table_data}}, building on initial table generated using \code{joinrec}.
 #' @param miss_recipe tibble or NULL. A missingness recipe, if desired, to be applied after data generation via \code{\link{inject_nas}}.
 #' @param db list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table references in \code{joinrec}.
+#' @param keep TODO
 #' @return The newly synthesized data table.
 #'
 #' @details

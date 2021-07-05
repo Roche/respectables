@@ -6,3 +6,5 @@ docs/
 *~
 vignettes/*.html
 docs
+*.tar.gz
+*.Rcheck/

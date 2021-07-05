@@ -20,6 +20,8 @@ gen_reljoin_table(
 \item{miss_recipe}{tibble or NULL. A missingness recipe, if desired, to be applied after data generation via \code{\link{inject_nas}}.}
 
 \item{db}{list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table references in \code{joinrec}.}
+
+\item{keep}{TODO}
 }
 \value{
 The newly synthesized data table.
