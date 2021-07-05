@@ -47,7 +47,7 @@ jobs:
       - name: Run R CMD CHECK
         run: |
           R CMD check --no-manual ${{ env.PKGBUILD }} --output check
-          result=$(tail -1 << parameters.package >>.Rcheck/00check.log)
+          result=$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.log)
           [[ $result = Status:* ]] || echo "could not get Status line"; set -o errexit
           [[ $result = *"WARNINGs"* ]] && echo "checks result in errors"; set -o errexit
           [[ $result = *"Error"* ]] && echo "checks result in errors"; set -o errexit
