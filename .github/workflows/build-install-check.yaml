@@ -33,6 +33,7 @@ jobs:
           if (file.exists("renv.lock")) {
             renv::restore()
           } else {
+            install.packages("remotes", repos = c(CRAN = "https://cloud.r-project.org/"), upgrade = "never")
             remotes::install_deps(dependencies = TRUE, upgrade = "never")
           }
         shell: Rscript {0}
@@ -43,12 +44,17 @@ jobs:
           echo "PKGBUILD=$(echo *.tar.gz)" >> $GITHUB_ENV
         shell: bash
 
-      - name: Install R package
-        run: R CMD INSTALL ${{ env.PKGBUILD }}
+      - name: Run R CMD CHECK
+        run: |
+          R CMD check --no-manual ${{ env.PKGBUILD }} --output check
+          result=$(tail -1 << parameters.package >>.Rcheck/00check.log)
+          [[ $result = Status:* ]] || echo "could not get Status line"; set -o errexit
+          [[ $result = *"WARNINGs"* ]] && echo "checks result in errors"; set -o errexit
+          [[ $result = *"Error"* ]] && echo "checks result in errors"; set -o errexit
         shell: bash
 
-      - name: Run R CMD Check
-        run: R CMD check --no-manual ${{ env.PKGBUILD }} --output check
+      - name: Install R package
+        run: R CMD INSTALL ${{ env.PKGBUILD }}
         shell: bash
 
       - name: Upload check results
