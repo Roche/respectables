@@ -49,16 +49,13 @@ jobs:
         run: R CMD check --no-manual ${{ env.PKGBUILD }}
         shell: bash
 
-      - name: No Errors No Warnings
+      - name: Catch errors, warnings in R CMD check output
+        id: catch-errors
         run: |
           result=$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.log)
-          [[ $result == Status:* ]] || (echo "::debug::{could not get Status line}" && exit 1)
-          [[ $result == *"Error"* ]] && (echo "::debug::{checks results in errors}" && exit 1)
-          [[ $result == *"WARNINGs"* ]] && (echo "::debug::{checks results in warnings}" && exit 1)
-        shell: bash
-
-      - name: Install R package
-        run: R CMD INSTALL ${{ env.PKGBUILD }}
+          [[ $result != Status:* ]] && echo "::debug::{could not get Status line}" && exit 1
+          [[ $result == *"ERROR"* ]] && echo "::debug::{checks results in errors}" && exit 1
+          [[ $result == *"WARNINGs"* ]] && echo "::debug::{checks results in warnings}" && exit 1
         shell: bash
 
       - name: Upload check results
@@ -67,3 +64,7 @@ jobs:
         with:
           name: ${{ matrix.config.image }}:${{ matrix.config.tag }}-results
           path: ${{ github.event.repository.name }}.Rcheck/00check.log
+
+      - name: Install R package
+        run: R CMD INSTALL ${{ env.PKGBUILD }}
+        shell: bash
