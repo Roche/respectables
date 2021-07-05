@@ -55,6 +55,8 @@ jobs:
             -t ascii//TRANSLIT \
             -o ${{ github.event.repository.name }}.Rcheck/00check.ascii \
             ${{ github.event.repository.name }}.Rcheck/00check.log
+          # Escape backslashes
+          sed -i -e 's/\\/\\\\/g' ${{ github.event.repository.name }}.Rcheck/00check.ascii
           # https://trstringer.com/github-actions-multiline-strings/
           output=$(cat ${{ github.event.repository.name }}.Rcheck/00check.ascii)
           output="${output//'%'/'%25'}"
