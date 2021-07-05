@@ -47,7 +47,7 @@ jobs:
 
       - name: Run R CMD CHECK
         run: |
-          R CMD check --no-manual ${{ env.PKGBUILD }} --output check
+          R CMD check --no-manual ${{ env.PKGBUILD }}
           result=$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.log)
           [[ $result == Status:* ]] || echo "could not get Status line"; exit 1
           [[ $result == *"Error"* ]] && echo "checks result in errors"; exit 1
@@ -63,4 +63,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name:  ${{ matrix.config.image }}:${{ matrix.config.tag }}-results
-          path: check
+          path: ${{ github.event.repository.name }}.Rcheck/00check.log
