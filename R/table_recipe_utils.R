@@ -5,13 +5,6 @@
 ## missingness_utils.R - for utilities for defining missingness content/patterns
 
 
-#' Sentry values for Recipe construction
-#'
-#' @details \code{no_deps} indicates no dependencies
-#' @export
-no_deps <- character()
-
-
 #' Create a factor with random elements of x
 #'
 #' Sample elements from x with replacing and build a factor

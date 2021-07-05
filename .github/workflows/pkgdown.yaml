@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build docs
-        run: R -e 'pkgdown::build_site(".", devel = FALSE)' | tee pkgdown.out
+        run: R -e 'pkgdown::build_site(".", devel = TRUE)' | tee pkgdown.out
         shell: bash
 
       - name: Upload pkgdown output
