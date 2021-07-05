@@ -20,6 +20,8 @@ Imports: stats,
 	 methods
 Suggests: knitr,
 	  dplyr,
-	  ggplot2, tinytest,
-	  dm
+	  ggplot2,
+	  tinytest,
+	  dm,
+	  rmarkdown
 VignetteBuilder: knitr
