@@ -47,19 +47,24 @@ jobs:
 
       - name: Run R CMD CHECK
         id: check
-        run: R CMD check --no-manual ${{ env.PKGBUILD }}
+        run: |
+          R CMD check --no-manual ${{ env.PKGBUILD }}
+          # https://trstringer.com/github-actions-multiline-strings/
+          output=$(cat ${{ github.event.repository.name }}.Rcheck/00check.log)
+          output="${output//'%'/'%25'}"
+          output="${output//$'\n'/'%0A'}"
+          output="${output//$'\r'/'%0D'}"
+          echo "::set-output name=check-output::$output"
         shell: bash
 
       - name: Post check output as comment
         uses: actions/github-script@v4
-        env:
-          CHECK_OUTPUT: "\n${{ steps.check.outputs.stdout }}\n${{ steps.check.outputs.stderr }"
         with:
           script: |
             const output = `<details><summary>R CMD Check Output for R ${{ matrix.config.tag }}</summary>
 
             \`\`\`R
-            ${{ process.env.CHECK_OUTPUT }}
+            ${{ steps.check.outputs.check-output }}
             \`\`\`
 
             </details>
