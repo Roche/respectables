@@ -50,21 +50,7 @@ jobs:
         run: R CMD check --no-manual ${{ env.PKGBUILD }}
         shell: bash
 
-      - name: Catch warnings in R CMD check output
-        run: |
-          x <- tail(readLines("${{ github.event.repository.name }}.Rcheck/00check.log"), 1)
-          if (!grepl("^Status", x)) stop("No status line found in R CMD check log")
-          if (grepl("WARNINGs", x)) stop("R CMD check has warnings")
-        shell: Rscript {0}
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.config.tag }}-results
-          path: ${{ github.event.repository.name }}.Rcheck/00check.log
-
-      - name: Post as comment
+      - name: Post check output as comment
         uses: actions/github-script@v4
         env:
           CHECK_OUTPUT: "\n${{ steps.check.outputs.stdout }}"
@@ -86,6 +72,20 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+
+      - name: Catch warnings in R CMD check output
+        run: |
+          x <- tail(readLines("${{ github.event.repository.name }}.Rcheck/00check.log"), 1)
+          if (!grepl("^Status", x)) stop("No status line found in R CMD check log")
+          if (grepl("WARNINGs", x)) stop("R CMD check has warnings")
+        shell: Rscript {0}
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.config.tag }}-results
+          path: ${{ github.event.repository.name }}.Rcheck/00check.log
 
       - name: Install R package
         run: R CMD INSTALL ${{ env.PKGBUILD }}
