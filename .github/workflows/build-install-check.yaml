@@ -53,13 +53,13 @@ jobs:
       - name: Post check output as comment
         uses: actions/github-script@v4
         env:
-          CHECK_OUTPUT: "\n${{ steps.check.outputs.stdout }}"
+          CHECK_OUTPUT: "\n${{ steps.check.outputs.stdout }}\n${{ steps.check.outputs.stderr }"
         with:
           script: |
             const output = `<details><summary>R CMD Check Output for R ${{ matrix.config.tag }}</summary>
 
             \`\`\`R
-            ${process.env.CHECK_OUTPUT}
+            ${{ process.env.CHECK_OUTPUT }}
             \`\`\`
 
             </details>
