@@ -30,10 +30,11 @@ jobs:
       - name: Install dependencies
         run: |
           setwd("${{ github.event.repository.name }}")
+          options(repos = c(CRAN = "https://cloud.r-project.org/"))
           if (file.exists("renv.lock")) {
             renv::restore()
           } else {
-            install.packages("remotes", repos = c(CRAN = "https://cloud.r-project.org/"), upgrade = "never")
+            install.packages("remotes", upgrade = "never")
             remotes::install_deps(dependencies = TRUE, upgrade = "never")
           }
         shell: Rscript {0}
@@ -48,9 +49,9 @@ jobs:
         run: |
           R CMD check --no-manual ${{ env.PKGBUILD }} --output check
           result=$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.log)
-          [[ $result = Status:* ]] || echo "could not get Status line"; set -o errexit
-          [[ $result = *"WARNINGs"* ]] && echo "checks result in errors"; set -o errexit
-          [[ $result = *"Error"* ]] && echo "checks result in errors"; set -o errexit
+          [[ $result = Status:* ]] || echo "could not get Status line"; exit 1
+          [[ $result = *"WARNINGs"* ]] && echo "checks result in warnings"; exit 1
+          [[ $result = *"Error"* ]] && echo "checks result in errors"; exit 1
         shell: bash
 
       - name: Install R package
