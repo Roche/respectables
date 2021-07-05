@@ -46,11 +46,11 @@ jobs:
         shell: bash
 
       - name: Run R CMD CHECK
+        id: check
         run: R CMD check --no-manual ${{ env.PKGBUILD }}
         shell: bash
 
       - name: Catch warnings in R CMD check output
-        id: catch-errors
         run: |
           x <- tail(readLines("${{ github.event.repository.name }}.Rcheck/00check.log"), 1)
           if (!grepl("^Status", x)) stop("No status line found in R CMD check log")
@@ -65,15 +65,26 @@ jobs:
           path: ${{ github.event.repository.name }}.Rcheck/00check.log
 
       - name: Post as comment
-        id: post-comment
         uses: actions/github-script@v4
+        env:
+          CHECK_OUTPUT: "\n${{ steps.check.outputs.stdout }}"
         with:
           script: |
+            const output = `<details><summary>R CMD Check Output for R ${{ matrix.config.tag }}</summary>
+
+            \`\`\`R
+            ${process.env.CHECK_OUTPUT}
+            \`\`\`
+
+            </details>
+
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '${{ steps.catch-error.outputs.check_output }}'
+              body: output
             })
 
       - name: Install R package
