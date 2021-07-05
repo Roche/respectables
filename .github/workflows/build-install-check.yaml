@@ -52,11 +52,11 @@ jobs:
       - name: Catch errors, warnings in R CMD check output
         id: catch-errors
         run: |
-          result=$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.log)
-          [[ $result != Status:* ]] && echo "::set-output name=check_output::{Could not get Status line}" && exit 1
-          [[ $result == *"ERROR"* ]] && echo "::set-output name=check_output::{Checks results in ERRORs}" && exit 1
-          [[ $result == *"WARNINGs"* ]] && echo "::set-output name=check_output::{Checks results in WARNINGs}" && exit 1
-        shell: bash
+          x <- tail(readLines("${{ github.event.repository.name }}.Rcheck/00check.log"), 1)
+          if (!grepl("^Status", x)) stop("No status line found in R CMD check log")
+          if (grepl("ERROR", x)) stop("R CMD check has errors")
+          if (grepl("WARNINGs", x)) stop("R CMD check has warnings")
+        shell: Rscript {0}
 
       - name: Upload check results
         if: failure()
