@@ -6,19 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Specifying, Simulating and Synthesizing Relational Data in R • respectables</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Specifying, Simulating and Synthesizing Relational Data in R">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="respectables">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -79,10 +79,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Specifying, Simulating and Synthesizing Relational Data in R</h1>
+      <h1 data-toc-skip>Specifying, Simulating and Synthesizing Relational Data in R</h1>
                         <h4 class="author">Gabriel Becker</h4>
             
-            <h4 class="date">2021-06-25</h4>
+            <h4 class="date">2021-07-05</h4>
       
       
       <div class="hidden name"><code>creating_synth_relational_data.Rmd</code></div>
@@ -164,55 +164,59 @@
 <li>
 <code>KEYVALUE</code> is normalaly distributed conditional on <code>STUFFLEVEL</code>, with a mean of 50 for the <code>"high"</code> level and 20 for the <code>"low"</code>, as implemented by the <code>keysize</code> function.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(respectables)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">respectables</span>)</pre></body></html></div>
 <pre><code>## Loading required package: tibble</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr))</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">keysize &lt;-<span class="st"> </span><span class="cf">function</span>(n, .df, ...) {</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    levmean &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(.df<span class="op">$</span>STUFFLEVEL <span class="op">==</span><span class="st"> "high"</span>, <span class="dv">50</span>, <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.df), <span class="dt">mean =</span> levmean, <span class="dt">sd =</span> <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">acct_dates &lt;-<span class="st"> </span><span class="cf">function</span>(n, firstopen, <span class="dt">lastclose =</span> <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>(), <span class="dt">p_closed =</span> <span class="fl">.15</span>) {</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    starts &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/rand_dtm.html">rand_posixct</a></span>(<span class="dt">n =</span> n, <span class="dt">start =</span> firstopen, <span class="dt">end =</span> lastclose)</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">    ends &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/rand_dtm.html">rand_posixct</a></span>(<span class="dt">n =</span> n, <span class="dt">start =</span> starts, <span class="dt">end =</span> lastclose)</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="cf">if</span>(p_closed <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) { </a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">        nainds &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(n), n <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">floor</a></span>(n <span class="op">*</span><span class="st"> </span>p_closed), <span class="dt">replace =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">        ends[nainds] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">    }</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">    <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">ACCT_OPEN=</span>starts, <span class="dt">ACCT_CLOSED=</span>ends)</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">}</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">acctdate_vars &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ACCT_OPEN"</span>, <span class="st">"ACCT_CLOSED"</span>)</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">recipe &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(<span class="op">~</span>variables, <span class="op">~</span>dependencies, <span class="op">~</span>func, <span class="op">~</span>func_args, <span class="op">~</span>keep,</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">                  <span class="st">"ID"</span>, no_deps, <span class="st">"subjid_func"</span>, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">prefix=</span><span class="st">"ID"</span>, <span class="dt">sep=</span><span class="st">""</span>), <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">                  <span class="st">"STUFFLEVEL"</span>, no_deps, sample_fct, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"high"</span>, <span class="st">"low"</span>)), <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">                  <span class="st">"KEYSIZE"</span>, <span class="st">"STUFFLEVEL"</span>, <span class="st">"keysize"</span>, <span class="ot">NULL</span>, <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">                  acctdate_vars, no_deps, <span class="st">"acct_dates"</span>, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">firstopen =</span> <span class="st">"2015-01-01"</span>, <span class="dt">lastclose =</span> <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()), <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25">sillydata &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/gen_table_data.html">gen_table_data</a></span>(<span class="dt">N =</span> <span class="dv">500</span>, <span class="dt">recipe =</span> recipe)</a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(sillydata)</a></code></pre></div>
+<pre><code>## Registered S3 methods overwritten by 'tibble':
+##   method     from  
+##   format.tbl pillar
+##   print.tbl  pillar</code></pre>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>))
+
+<span class="no">keysize</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n</span>, <span class="no">.df</span>, <span class="no">...</span>) {
+    <span class="no">levmean</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">.df</span>$<span class="no">STUFFLEVEL</span> <span class="kw">==</span> <span class="st">"high"</span>, <span class="fl">50</span>, <span class="fl">20</span>)
+    <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">.df</span>), <span class="kw">mean</span> <span class="kw">=</span> <span class="no">levmean</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">15</span>)
+}
+
+<span class="no">acct_dates</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n</span>, <span class="no">firstopen</span>, <span class="no">lastclose</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>(), <span class="no">p_closed</span> <span class="kw">=</span> <span class="fl">.15</span>) {
+    <span class="no">starts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rand_dtm.html">rand_posixct</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="no">n</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="no">firstopen</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="no">lastclose</span>)
+    <span class="no">ends</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rand_dtm.html">rand_posixct</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="no">n</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="no">starts</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="no">lastclose</span>)
+    <span class="kw">if</span>(<span class="no">p_closed</span> <span class="kw">&gt;</span> <span class="fl">0</span>) {
+        <span class="no">nainds</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="no">n</span>), <span class="no">n</span> - <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span>(<span class="no">n</span> * <span class="no">p_closed</span>), <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+        <span class="no">ends</span>[<span class="no">nainds</span>] <span class="kw">&lt;-</span> <span class="fl">NA</span>
+    }
+    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">ACCT_OPEN</span><span class="kw">=</span><span class="no">starts</span>, <span class="kw">ACCT_CLOSED</span><span class="kw">=</span><span class="no">ends</span>)
+}
+
+<span class="no">acctdate_vars</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ACCT_OPEN"</span>, <span class="st">"ACCT_CLOSED"</span>)
+<span class="no">recipe</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(~<span class="no">variables</span>, ~<span class="no">dependencies</span>, ~<span class="no">func</span>, ~<span class="no">func_args</span>, ~<span class="no">keep</span>,
+                  <span class="st">"ID"</span>, <span class="no">no_deps</span>, <span class="st">"subjid_func"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">prefix</span><span class="kw">=</span><span class="st">"ID"</span>, <span class="kw">sep</span><span class="kw">=</span><span class="st">""</span>), <span class="fl">TRUE</span>,
+                  <span class="st">"STUFFLEVEL"</span>, <span class="no">no_deps</span>, <span class="no">sample_fct</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"high"</span>, <span class="st">"low"</span>)), <span class="fl">TRUE</span>,
+                  <span class="st">"KEYSIZE"</span>, <span class="st">"STUFFLEVEL"</span>, <span class="st">"keysize"</span>, <span class="kw">NULL</span>, <span class="fl">TRUE</span>,
+                  <span class="no">acctdate_vars</span>, <span class="no">no_deps</span>, <span class="st">"acct_dates"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">firstopen</span> <span class="kw">=</span> <span class="st">"2015-01-01"</span>, <span class="kw">lastclose</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()), <span class="fl">TRUE</span>)
+
+<span class="no">sillydata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_table_data.html">gen_table_data</a></span>(<span class="kw">N</span> <span class="kw">=</span> <span class="fl">500</span>, <span class="kw">recipe</span> <span class="kw">=</span> <span class="no">recipe</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sillydata</span>)</pre></body></html></div>
 <pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN         ACCT_CLOSED
-## 1 ID001       high 58.95522 2016-01-18 20:51:49                &lt;NA&gt;
-## 2 ID002        low 39.52264 2019-07-29 04:11:15                &lt;NA&gt;
-## 3 ID003       high 42.42408 2020-07-20 00:11:48                &lt;NA&gt;
-## 4 ID004       high 28.70772 2019-10-27 03:12:36 2020-06-05 10:31:09
-## 5 ID005        low 20.61485 2015-08-29 01:52:12                &lt;NA&gt;
-## 6 ID006       high 68.04950 2018-07-28 06:47:35                &lt;NA&gt;</code></pre>
+## 1 ID001       high 49.58828 2017-08-01 02:38:45 2017-09-28 00:23:44
+## 2 ID002       high 63.36925 2015-12-31 13:26:58                &lt;NA&gt;
+## 3 ID003       high 47.10673 2018-08-20 20:31:12                &lt;NA&gt;
+## 4 ID004        low 14.90383 2017-11-02 06:16:14 2017-12-09 04:28:30
+## 5 ID005       high 54.62871 2015-08-02 14:51:27 2020-11-28 16:24:59
+## 6 ID006        low 22.10649 2015-02-11 13:03:15                &lt;NA&gt;</code></pre>
 <p>We can see that the conditional distribution worked by plotting the data densities for each <code>STUFFLEVEL</code> value</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2))</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">mu &lt;-<span class="st"> </span>sillydata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(STUFFLEVEL) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">grp.mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(KEYSIZE))</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">p &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(sillydata, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x=</span>KEYSIZE, <span class="dt">color=</span>STUFFLEVEL)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span>() </a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">  <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span>(<span class="dt">data=</span>mu, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">xintercept=</span>grp.mean, <span class="dt">color=</span>STUFFLEVEL),</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">             <span class="dt">linetype=</span><span class="st">"dashed"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>))
+
+<span class="no">mu</span> <span class="kw">&lt;-</span> <span class="no">sillydata</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">STUFFLEVEL</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="kw">grp.mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">KEYSIZE</span>))
+
+<span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">sillydata</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">KEYSIZE</span>, <span class="kw">color</span><span class="kw">=</span><span class="no">STUFFLEVEL</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span>()
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">mu</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">xintercept</span><span class="kw">=</span><span class="no">grp.mean</span>, <span class="kw">color</span><span class="kw">=</span><span class="no">STUFFLEVEL</span>),
+             <span class="kw">linetype</span><span class="kw">=</span><span class="st">"dashed"</span>)</pre></body></html></div>
 <pre><code>## mapping: xintercept = ~grp.mean, colour = ~STUFFLEVEL 
 ## geom_vline: na.rm = FALSE
 ## stat_identity: na.rm = FALSE
 ## position_identity</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">p</a></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">p</span></pre></body></html></div>
 <p><img src="creating_synth_relational_data_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>This process does the following:</p>
 <ul>
@@ -225,95 +229,88 @@
 <li>Finally, the synthesized data are reordered to match the order the variables appeared in the recipe (with <code>df</code> prepended if it was not <code>NULL</code>)</li>
 </ul>
 <p>Now suppose that we want to create another dataset where each of our ids from <code>sillydata</code> correspond with some number of “purchases”. We will do this by creating a <em>scaffold join recipe</em></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">scaffolder &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/reljoin_funcs.html">rand_per_key</a></span>(<span class="st">"ID"</span>, <span class="dt">mincount =</span> <span class="dv">0</span>, <span class="dt">maxcount =</span> <span class="dv">5</span>, <span class="dt">prop_present =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">sjrecipe &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(<span class="op">~</span>foreign_tbl, <span class="op">~</span>foreign_key, <span class="op">~</span>func, <span class="op">~</span>func_args,</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">                    <span class="st">"sillydata"</span>, <span class="st">"ID"</span>, <span class="st">"scaffolder"</span>, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>())</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">## this function generates buy dates  and makes sure BUYIDs are</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">## sequential globally and BUYDATEs (and thus BUYIDS) are</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">## sequential within each ID</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">##</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">## Each purchase is guaranteed to be between the account's</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">## start and end date</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">buydate_func &lt;-<span class="st"> </span><span class="cf">function</span>(n, .df, <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>()) {</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">    n &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.df)</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">    starts &lt;-<span class="st"> </span>.df<span class="op">$</span>ACCT_OPEN</a>
-<a class="sourceLine" id="cb8-14" data-line-number="14">    ends &lt;-<span class="st"> </span>.df<span class="op">$</span>ACCT_CLOSED</a>
-<a class="sourceLine" id="cb8-15" data-line-number="15">    ends[<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(end)] &lt;-<span class="st"> </span>end</a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">    dates &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/rand_dtm.html">rand_posixct</a></span>(<span class="dt">start =</span> starts, <span class="dt">end =</span> ends, <span class="dt">n =</span> n)</a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">    ids &lt;-<span class="st"> </span>.df<span class="op">$</span>ID</a>
-<a class="sourceLine" id="cb8-18" data-line-number="18">    odates &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(ids, dates)</a>
-<a class="sourceLine" id="cb8-19" data-line-number="19">    revit &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(dates))</a>
-<a class="sourceLine" id="cb8-20" data-line-number="20">    </a>
-<a class="sourceLine" id="cb8-21" data-line-number="21">    toret &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">BUYID =</span> <span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(n)[revit], <span class="dt">BUYDATE =</span> dates, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb8-22" data-line-number="22">    toret[odates,]</a>
-<a class="sourceLine" id="cb8-23" data-line-number="23">}</a>
-<a class="sourceLine" id="cb8-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">## lookup table for products and when they were available for purchase</span></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26">products &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(<span class="op">~</span>PRODUCTID, <span class="op">~</span>DESC, <span class="op">~</span>AVAIL_ST, <span class="op">~</span>AVAIL_END,</a>
-<a class="sourceLine" id="cb8-27" data-line-number="27">                    <span class="st">"PROD1"</span>, <span class="st">"Doodad"</span>, <span class="st">"2010-01-01"</span>, <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),</a>
-<a class="sourceLine" id="cb8-28" data-line-number="28">                    <span class="st">"PROD2"</span>, <span class="st">"HLight Fluid"</span>, <span class="st">"2010-01-01"</span>, <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),</a>
-<a class="sourceLine" id="cb8-29" data-line-number="29">                    <span class="st">"PROD3"</span>, <span class="st">"Mcguffin"</span>, <span class="st">"2017-01-01"</span>, <span class="kw"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="st">"2017-12-31"</span>),</a>
-<a class="sourceLine" id="cb8-30" data-line-number="30">                    <span class="st">"PROD4"</span>, <span class="st">"Spanner"</span>, <span class="st">"2010-01-01"</span>, <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),</a>
-<a class="sourceLine" id="cb8-31" data-line-number="31">                    <span class="st">"PROD5"</span>, <span class="st">"Thingbat"</span>, <span class="st">"2015-03-03"</span>, <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),</a>
-<a class="sourceLine" id="cb8-32" data-line-number="32">                    <span class="st">"PROD6"</span>, <span class="st">"Thingbat v2"</span>, <span class="st">"2018-03-03"</span>, <span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>())</a>
-<a class="sourceLine" id="cb8-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb8-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb8-35" data-line-number="35">prodcols &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRODUCTID"</span>, <span class="st">"DESC"</span>)</a>
-<a class="sourceLine" id="cb8-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb8-37" data-line-number="37"><span class="co">## note this is written inefficiently for illustrative purposes</span></a>
-<a class="sourceLine" id="cb8-38" data-line-number="38"><span class="co">## doing this efficiently is possible but much more complicated</span></a>
-<a class="sourceLine" id="cb8-39" data-line-number="39"><span class="co">##</span></a>
-<a class="sourceLine" id="cb8-40" data-line-number="40"><span class="co">## for each purchase, grab the BUYDATE and lookup which</span></a>
-<a class="sourceLine" id="cb8-41" data-line-number="41"><span class="co">## products were available at that time, then sample from</span></a>
-<a class="sourceLine" id="cb8-42" data-line-number="42"><span class="co">## those to see what was purchased.</span></a>
-<a class="sourceLine" id="cb8-43" data-line-number="43">prods_func &lt;-<span class="st"> </span><span class="cf">function</span>(n, .df) {</a>
-<a class="sourceLine" id="cb8-44" data-line-number="44">    n &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span>(.df)</a>
-<a class="sourceLine" id="cb8-45" data-line-number="45">    BUYDATE &lt;-<span class="st"> </span>.df<span class="op">$</span>BUYDATE</a>
-<a class="sourceLine" id="cb8-46" data-line-number="46">    pstarts &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(products<span class="op">$</span>AVAIL_ST)</a>
-<a class="sourceLine" id="cb8-47" data-line-number="47">    pends &lt;-<span class="st"> </span>products<span class="op">$</span>AVAIL_END</a>
-<a class="sourceLine" id="cb8-48" data-line-number="48">    rows &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(BUYDATE,</a>
-<a class="sourceLine" id="cb8-49" data-line-number="49">                   <span class="cf">function</span>(bdt) {</a>
-<a class="sourceLine" id="cb8-50" data-line-number="50">        pids &lt;-<span class="st"> </span>products<span class="op">$</span>PRODUCTID[pstarts <span class="op">&lt;=</span><span class="st"> </span>bdt <span class="op">&amp;</span><span class="st"> </span>bdt <span class="op">&lt;=</span><span class="st"> </span>pends]</a>
-<a class="sourceLine" id="cb8-51" data-line-number="51">        bought &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(pids, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb8-52" data-line-number="52">        products[products<span class="op">$</span>PRODUCTID<span class="op">==</span>bought,]</a>
-<a class="sourceLine" id="cb8-53" data-line-number="53">    })</a>
-<a class="sourceLine" id="cb8-54" data-line-number="54"></a>
-<a class="sourceLine" id="cb8-55" data-line-number="55">    <span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(rbind, rows)[,prodcols]</a>
-<a class="sourceLine" id="cb8-56" data-line-number="56">}</a>
-<a class="sourceLine" id="cb8-57" data-line-number="57"></a>
-<a class="sourceLine" id="cb8-58" data-line-number="58"><span class="co">## The recipe for the purchases dataset</span></a>
-<a class="sourceLine" id="cb8-59" data-line-number="59">buys_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(<span class="op">~</span>variables, <span class="op">~</span>dependencies, <span class="op">~</span>func, <span class="op">~</span>func_args, <span class="op">~</span>keep,</a>
-<a class="sourceLine" id="cb8-60" data-line-number="60">                    <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"BUYID"</span>, <span class="st">"BUYDATE"</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ID"</span>, acctdate_vars), <span class="st">"buydate_func"</span>, <span class="ot">NULL</span>, <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb8-61" data-line-number="61">                      prodcols, <span class="st">"BUYDATE"</span>, <span class="st">"prods_func"</span>, <span class="ot">NULL</span>, <span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb8-62" data-line-number="62"></a>
-<a class="sourceLine" id="cb8-63" data-line-number="63"><span class="co">## creat the dataset based ont he scaffolding join recipe and our</span></a>
-<a class="sourceLine" id="cb8-64" data-line-number="64"><span class="co">## already created sillydata dataset</span></a>
-<a class="sourceLine" id="cb8-65" data-line-number="65">buysdf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/respectables/man/gen_reljoin_table.html">gen_reljoin_table</a></span>(sjrecipe, buys_rec, <span class="dt">db =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">sillydata =</span> sillydata))</a>
-<a class="sourceLine" id="cb8-66" data-line-number="66"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(buysdf)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">scaffolder</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/reljoin_funcs.html">rand_per_key</a></span>(<span class="st">"ID"</span>, <span class="kw">mincount</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">maxcount</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">prop_present</span> <span class="kw">=</span> <span class="fl">1</span>)
+<span class="no">sjrecipe</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(~<span class="no">foreign_tbl</span>, ~<span class="no">foreign_key</span>, ~<span class="no">func</span>, ~<span class="no">func_args</span>,
+                    <span class="st">"sillydata"</span>, <span class="st">"ID"</span>, <span class="st">"scaffolder"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>())
+
+<span class="co">## this function generates buy dates  and makes sure BUYIDs are</span>
+<span class="co">## sequential globally and BUYDATEs (and thus BUYIDS) are</span>
+<span class="co">## sequential within each ID</span>
+<span class="co">##</span>
+<span class="co">## Each purchase is guaranteed to be between the account's</span>
+<span class="co">## start and end date</span>
+<span class="no">buydate_func</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n</span>, <span class="no">.df</span>, <span class="no">end</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>()) {
+    <span class="no">n</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">.df</span>)
+    <span class="no">starts</span> <span class="kw">&lt;-</span> <span class="no">.df</span>$<span class="no">ACCT_OPEN</span>
+    <span class="no">ends</span> <span class="kw">&lt;-</span> <span class="no">.df</span>$<span class="no">ACCT_CLOSED</span>
+    <span class="no">ends</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">end</span>)] <span class="kw">&lt;-</span> <span class="no">end</span>
+    <span class="no">dates</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rand_dtm.html">rand_posixct</a></span>(<span class="kw">start</span> <span class="kw">=</span> <span class="no">starts</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="no">ends</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="no">n</span>)
+    <span class="no">ids</span> <span class="kw">&lt;-</span> <span class="no">.df</span>$<span class="no">ID</span>
+    <span class="no">odates</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">ids</span>, <span class="no">dates</span>)
+    <span class="no">revit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">dates</span>))
+
+    <span class="no">toret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">BUYID</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="no">n</span>)[<span class="no">revit</span>], <span class="kw">BUYDATE</span> <span class="kw">=</span> <span class="no">dates</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+    <span class="no">toret</span>[<span class="no">odates</span>,]
+}
+
+<span class="co">## lookup table for products and when they were available for purchase</span>
+<span class="no">products</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(~<span class="no">PRODUCTID</span>, ~<span class="no">DESC</span>, ~<span class="no">AVAIL_ST</span>, ~<span class="no">AVAIL_END</span>,
+                    <span class="st">"PROD1"</span>, <span class="st">"Doodad"</span>, <span class="st">"2010-01-01"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),
+                    <span class="st">"PROD2"</span>, <span class="st">"HLight Fluid"</span>, <span class="st">"2010-01-01"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),
+                    <span class="st">"PROD3"</span>, <span class="st">"Mcguffin"</span>, <span class="st">"2017-01-01"</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="st">"2017-12-31"</span>),
+                    <span class="st">"PROD4"</span>, <span class="st">"Spanner"</span>, <span class="st">"2010-01-01"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),
+                    <span class="st">"PROD5"</span>, <span class="st">"Thingbat"</span>, <span class="st">"2015-03-03"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>(),
+                    <span class="st">"PROD6"</span>, <span class="st">"Thingbat v2"</span>, <span class="st">"2018-03-03"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span>())
+
+
+<span class="no">prodcols</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRODUCTID"</span>, <span class="st">"DESC"</span>)
+
+<span class="co">## note this is written inefficiently for illustrative purposes</span>
+<span class="co">## doing this efficiently is possible but much more complicated</span>
+<span class="co">##</span>
+<span class="co">## for each purchase, grab the BUYDATE and lookup which</span>
+<span class="co">## products were available at that time, then sample from</span>
+<span class="co">## those to see what was purchased.</span>
+<span class="no">prods_func</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n</span>, <span class="no">.df</span>) {
+    <span class="no">n</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span>(<span class="no">.df</span>)
+    <span class="no">BUYDATE</span> <span class="kw">&lt;-</span> <span class="no">.df</span>$<span class="no">BUYDATE</span>
+    <span class="no">pstarts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="no">products</span>$<span class="no">AVAIL_ST</span>)
+    <span class="no">pends</span> <span class="kw">&lt;-</span> <span class="no">products</span>$<span class="no">AVAIL_END</span>
+    <span class="no">rows</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">BUYDATE</span>,
+                   <span class="kw">function</span>(<span class="no">bdt</span>) {
+        <span class="no">pids</span> <span class="kw">&lt;-</span> <span class="no">products</span>$<span class="no">PRODUCTID</span>[<span class="no">pstarts</span> <span class="kw">&lt;=</span> <span class="no">bdt</span> <span class="kw">&amp;</span> <span class="no">bdt</span> <span class="kw">&lt;=</span> <span class="no">pends</span>]
+        <span class="no">bought</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">pids</span>, <span class="fl">1</span>)
+        <span class="no">products</span>[<span class="no">products</span>$<span class="no">PRODUCTID</span><span class="kw">==</span><span class="no">bought</span>,]
+    })
+
+    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="no">rbind</span>, <span class="no">rows</span>)[,<span class="no">prodcols</span>]
+}
+
+<span class="co">## The recipe for the purchases dataset</span>
+<span class="no">buys_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(~<span class="no">variables</span>, ~<span class="no">dependencies</span>, ~<span class="no">func</span>, ~<span class="no">func_args</span>, ~<span class="no">keep</span>,
+                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"BUYID"</span>, <span class="st">"BUYDATE"</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ID"</span>, <span class="no">acctdate_vars</span>), <span class="st">"buydate_func"</span>, <span class="kw">NULL</span>, <span class="fl">TRUE</span>,
+                      <span class="no">prodcols</span>, <span class="st">"BUYDATE"</span>, <span class="st">"prods_func"</span>, <span class="kw">NULL</span>, <span class="fl">TRUE</span>)
+
+<span class="co">## creat the dataset based ont he scaffolding join recipe and our</span>
+<span class="co">## already created sillydata dataset</span>
+<span class="no">buysdf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_reljoin_table.html">gen_reljoin_table</a></span>(<span class="no">sjrecipe</span>, <span class="no">buys_rec</span>, <span class="kw">db</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">sillydata</span> <span class="kw">=</span> <span class="no">sillydata</span>))
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">buysdf</span>)</pre></body></html></div>
 <pre><code>##      ID BUYID             BUYDATE PRODUCTID         DESC
-## 3 ID001    26 2016-06-15 12:33:02     PROD5     Thingbat
-## 1 ID001    98 2017-06-11 00:54:59     PROD5     Thingbat
-## 4 ID001   295 2018-09-05 09:18:18     PROD4      Spanner
-## 2 ID001   619 2020-02-03 04:50:25     PROD2 HLight Fluid
-## 6 ID005   103 2017-06-23 12:51:46     PROD2 HLight Fluid
-## 5 ID005   515 2019-09-05 05:01:19     PROD4      Spanner</code></pre>
+## 1 ID001   166 2017-08-21 11:31:02     PROD3     Mcguffin
+## 2 ID002   381 2018-12-21 04:12:34     PROD5     Thingbat
+## 5 ID003   384 2018-12-24 07:55:28     PROD6  Thingbat v2
+## 3 ID003   415 2019-02-18 10:27:26     PROD4      Spanner
+## 4 ID003   616 2019-12-11 06:40:01     PROD1       Doodad
+## 6 ID003  1055 2021-01-24 12:52:32     PROD2 HLight Fluid</code></pre>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction-and-motivations">Introduction and Motivations</a></li>
-      <li><a href="#recipes">Recipes</a></li>
-      <li><a href="#constructing-data-with-recipes">Constructing Data with Recipes</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -324,7 +321,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
