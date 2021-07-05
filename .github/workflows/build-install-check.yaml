@@ -53,17 +53,29 @@ jobs:
         id: catch-errors
         run: |
           result=$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.log)
-          [[ $result != Status:* ]] && echo "::debug::{could not get Status line}" && exit 1
-          [[ $result == *"ERROR"* ]] && echo "::debug::{checks results in errors}" && exit 1
-          [[ $result == *"WARNINGs"* ]] && echo "::debug::{checks results in warnings}" && exit 1
+          [[ $result != Status:* ]] && echo "::set-output name=check_output::{Could not get Status line}" && exit 1
+          [[ $result == *"ERROR"* ]] && echo "::set-output name=check_output::{Checks results in ERRORs}" && exit 1
+          [[ $result == *"WARNINGs"* ]] && echo "::set-output name=check_output::{Checks results in WARNINGs}" && exit 1
         shell: bash
 
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.config.image }}:${{ matrix.config.tag }}-results
+          name: ${{ matrix.config.tag }}-results
           path: ${{ github.event.repository.name }}.Rcheck/00check.log
+
+      - name: Post as comment
+        id: post-comment
+        uses: actions/github-script@v4
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ steps.catch-error.outputs.check_output }}'
+            })
 
       - name: Install R package
         run: R CMD INSTALL ${{ env.PKGBUILD }}
