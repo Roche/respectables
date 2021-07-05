@@ -49,12 +49,11 @@ jobs:
         run: R CMD check --no-manual ${{ env.PKGBUILD }}
         shell: bash
 
-      - name: Catch errors, warnings in R CMD check output
+      - name: Catch warnings in R CMD check output
         id: catch-errors
         run: |
           x <- tail(readLines("${{ github.event.repository.name }}.Rcheck/00check.log"), 1)
           if (!grepl("^Status", x)) stop("No status line found in R CMD check log")
-          if (grepl("ERROR", x)) stop("R CMD check has errors")
           if (grepl("WARNINGs", x)) stop("R CMD check has warnings")
         shell: Rscript {0}
 
