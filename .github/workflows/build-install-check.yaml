@@ -24,20 +24,22 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          path: ${{ github.event.repository.name }}
 
       - name: Install dependencies
         run: |
+          setwd(${{ github.event.repository.name }})
           if (file.exists("renv.lock")) {
             renv::restore()
           } else {
-            remotes::install_deps()
+            remotes::install_deps(dependencies = TRUE, upgrade = "never")
           }
-          install.packages("tinytest", repos="http://cran.us.r-project.org")
         shell: Rscript {0}
 
       - name: Build R package
         run: |
-          R CMD build .
+          R CMD build ${{ github.event.repository.name }}
           echo "PKGBUILD=$(echo *.tar.gz)" >> $GITHUB_ENV
         shell: bash
 
