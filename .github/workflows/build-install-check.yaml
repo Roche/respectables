@@ -29,7 +29,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          setwd(${{ github.event.repository.name }})
+          setwd("${{ github.event.repository.name }}")
           if (file.exists("renv.lock")) {
             renv::restore()
           } else {
