@@ -82,7 +82,7 @@
       <h1 data-toc-skip>Specifying, Simulating and Synthesizing Relational Data in R</h1>
                         <h4 class="author">Gabriel Becker</h4>
             
-            <h4 class="date">2021-07-05</h4>
+            <h4 class="date">2021-07-06</h4>
       
       
       <div class="hidden name"><code>creating_synth_relational_data.Rmd</code></div>
@@ -196,13 +196,13 @@
 
 <span class="no">sillydata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_table_data.html">gen_table_data</a></span>(<span class="kw">N</span> <span class="kw">=</span> <span class="fl">500</span>, <span class="kw">recipe</span> <span class="kw">=</span> <span class="no">recipe</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sillydata</span>)</pre></body></html></div>
-<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN         ACCT_CLOSED
-## 1 ID001       high 49.58828 2017-08-01 02:38:45 2017-09-28 00:23:44
-## 2 ID002       high 63.36925 2015-12-31 13:26:58                &lt;NA&gt;
-## 3 ID003       high 47.10673 2018-08-20 20:31:12                &lt;NA&gt;
-## 4 ID004        low 14.90383 2017-11-02 06:16:14 2017-12-09 04:28:30
-## 5 ID005       high 54.62871 2015-08-02 14:51:27 2020-11-28 16:24:59
-## 6 ID006        low 22.10649 2015-02-11 13:03:15                &lt;NA&gt;</code></pre>
+<pre><code>##      ID STUFFLEVEL   KEYSIZE           ACCT_OPEN         ACCT_CLOSED
+## 1 ID001       high 64.991940 2015-09-12 02:35:46 2020-07-30 23:26:19
+## 2 ID002        low 25.648871 2015-01-27 06:38:46                &lt;NA&gt;
+## 3 ID003        low  6.232017 2017-06-18 14:57:36                &lt;NA&gt;
+## 4 ID004       high 31.706414 2019-10-23 02:54:43                &lt;NA&gt;
+## 5 ID005       high 57.845460 2019-10-14 01:02:13                &lt;NA&gt;
+## 6 ID006       high 51.010555 2017-05-10 21:19:10                &lt;NA&gt;</code></pre>
 <p>We can see that the conditional distribution worked by plotting the data densities for each <code>STUFFLEVEL</code> value</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>))
 
@@ -296,12 +296,12 @@
 <span class="no">buysdf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_reljoin_table.html">gen_reljoin_table</a></span>(<span class="no">sjrecipe</span>, <span class="no">buys_rec</span>, <span class="kw">db</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">sillydata</span> <span class="kw">=</span> <span class="no">sillydata</span>))
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">buysdf</span>)</pre></body></html></div>
 <pre><code>##      ID BUYID             BUYDATE PRODUCTID         DESC
-## 1 ID001   166 2017-08-21 11:31:02     PROD3     Mcguffin
-## 2 ID002   381 2018-12-21 04:12:34     PROD5     Thingbat
-## 5 ID003   384 2018-12-24 07:55:28     PROD6  Thingbat v2
-## 3 ID003   415 2019-02-18 10:27:26     PROD4      Spanner
-## 4 ID003   616 2019-12-11 06:40:01     PROD1       Doodad
-## 6 ID003  1055 2021-01-24 12:52:32     PROD2 HLight Fluid</code></pre>
+## 2 ID001    57 2016-09-01 18:19:16     PROD2 HLight Fluid
+## 3 ID001    94 2017-02-24 08:42:14     PROD5     Thingbat
+## 1 ID001    96 2017-03-10 08:56:03     PROD1       Doodad
+## 5 ID002    36 2016-04-12 16:05:42     PROD4      Spanner
+## 4 ID002   352 2018-12-25 21:10:35     PROD6  Thingbat v2
+## 7 ID003   142 2017-09-01 22:29:38     PROD2 HLight Fluid</code></pre>
 </div>
 </div>
   </div>
