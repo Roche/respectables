@@ -2,8 +2,8 @@
 
 ## Checklist
 
-- [] My pull request is linked to a Github issue
-- [] I have reviewed the Contribution guidelines
+- [ ] My pull request is linked to a Github issue
+- [ ] I have reviewed the Contribution guidelines
 
 ## Description
 
