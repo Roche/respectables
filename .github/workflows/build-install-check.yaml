@@ -68,7 +68,8 @@ jobs:
           output="${output//$'\n'/'%0A'}"
           output="${output//$'\r'/'%0D'}"
           echo "::set-output name=check-output::$output"
-          echo "::set-output name=check-status::$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.ascii)"
+          status=$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.ascii)
+          echo "::set-output name=check-status::$status"
 
       - name: Post check output as PR comment
         if: github.event_name == 'pull_request'
