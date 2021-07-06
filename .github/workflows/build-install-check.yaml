@@ -46,9 +46,14 @@ jobs:
         shell: bash
 
       - name: Run R CMD CHECK
+        run: R CMD check --no-manual ${{ env.PKGBUILD }}
+        shell: bash
+        continue-on-error: true
+
+      - name: Parse check output for posting as PR comment
+        if: github.event_name == 'pull_request'
         id: check
         run: |
-          R CMD check --no-manual ${{ env.PKGBUILD }}
           # Convert UTF-8 encoded check output to ASCII
           iconv -sc \
             -f UTF-8 \
@@ -63,13 +68,18 @@ jobs:
           output="${output//$'\n'/'%0A'}"
           output="${output//$'\r'/'%0D'}"
           echo "::set-output name=check-output::$output"
-        shell: bash
+          echo "::set-output name=check-status::$(tail -1 ${{ github.event.repository.name }}.Rcheck/00check.ascii)"
 
-      - name: Post check output as comment
+      - name: Post check output as PR comment
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v4
         with:
           script: |
-            const output = `<details><summary>R CMD Check Output for R ${{ matrix.config.tag }}</summary>
+            const output = `#### R CMD check for R v${{ matrix.config.tag }}
+
+            \`R CMD check\` resulted in \`${{ steps.check.outputs.check-status }}\`
+
+            <details><summary>Click here to show full output</summary>
 
             \`\`\`R
             ${{ steps.check.outputs.check-output }}
