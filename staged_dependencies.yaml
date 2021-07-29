@@ -1,0 +1,9 @@
+---
+
+downstream_repos:
+- repo: Roche/synthetic.cdisc.data
+  host: https://github.com
+
+current_repo:
+- repo: Roche/respectables
+  host: https://github.com
