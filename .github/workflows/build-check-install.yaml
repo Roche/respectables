@@ -25,7 +25,20 @@ jobs:
       - name: Install basic system requirements
         run:  |
            apt-get update
-           apt install -y git r-base curl
+           apt install -y git-all r-base curl
+        shell: bash
+
+      - name: Check if Docker image meets requirements
+        run: |
+          lsb=$(lsb_release -d)
+          [[ ! $lsb =~ "Ubuntu" ]] && exit 1
+
+          required_pkgs="r-base curl git"
+          for PKG in $required_pkgs
+          do {
+            DPKG_PAGER=cat dpkg -l $PKG
+          }
+          done
         shell: bash
 
       - name: Gather info from PR
