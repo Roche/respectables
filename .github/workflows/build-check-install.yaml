@@ -19,13 +19,12 @@ jobs:
       matrix:
         config:
           - {image: rocker/tidyverse, tag: '4.1.0'}
-          - {image: rocker/tidyverse, tag: '3.6.3'}
 
     steps:
       - name: Install basic system requirements
         run:  |
            apt-get update
-           apt install -y git-all r-base curl
+           apt install -y git r-base curl
         shell: bash
 
       - name: Check if Docker image meets requirements
