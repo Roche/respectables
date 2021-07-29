@@ -28,19 +28,6 @@ jobs:
            apt install -y git r-base curl
         shell: bash
 
-      - name: Check if Docker image meets requirements
-        run: |
-          lsb=$(lsb_release -d)
-          [[ ! $lsb =~ "Ubuntu" ]] && exit 1
-
-          required_pkgs="r-base curl git"
-          for PKG in $required_pkgs
-          do {
-            DPKG_PAGER=cat dpkg -l $PKG
-          }
-          done
-        shell: bash
-
       - name: Gather info from PR
         uses: actions/github-script@v4
         id: get-pr
