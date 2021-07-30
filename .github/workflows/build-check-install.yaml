@@ -151,26 +151,6 @@ jobs:
           if (grepl("WARNING", x)) stop("R CMD check has warnings")
         shell: Rscript {0}
 
-      - name: Post check output as PR comment
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const output = `#### R CMD check for R v${{ matrix.config.tag }}
-            \`R CMD check\` resulted in \`${{ steps.check.outputs.check-status }}\`
-            <details><summary>Click here to show full output</summary>
-            \`\`\`R
-            ${{ steps.check.outputs.check-output }}
-            \`\`\`
-            </details>
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
-
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@v2
