@@ -18,15 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {image: rocker/tidyverse, tag: '4.1.0'}
+          - {image: ghcr.io/insightsengineering/tidyverse_4.1.0_bioc_3.13, tag: latest}
 
     steps:
-      - name: Install basic system requirements
-        run:  |
-           apt-get update
-           apt install -y git r-base curl
-        shell: bash
-
       - name: Check if Docker image meets requirements
         run: |
           lsb=$(lsb_release -d)
