@@ -85,6 +85,8 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
                      function(i) {
         fun <- lookup_fun(indepdf$func[[i]])
         args <- indepdf$func_args[[i]]
+        if(!is.null(df))
+            args <- c(args, list(.df = df))
         vars <- indepdf$variables[[i]]
         ret <- do.call(fun, c(list(n=N), args))
     })
@@ -120,6 +122,9 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
     ## put them in the order they appear in the recipe, this ultimately may not be what we want
     patdf <- patdf[,c(names(df), unlist(recipe$variables))]
     if("keep" %in% names(recipe)) {
+        if(length(df_keepcols) == 0 || all(is.na(df_keepcols)) || isTRUE(df_keepcols)) {
+            df_keepcols <- names(df)
+        }
         keep <- c(df_keepcols,
                   unlist(mapply(function(vars, keep) {vars[keep]},
                                 vars = recipe$variables,
@@ -175,11 +180,11 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
 #' @seealso \code{\link{reljoin_funcs}}
 #' @export
 gen_reljoin_table <- function(joinrec, tblrec, miss_recipe = NULL, db, keep = NA_character_) {
-    fdat <- db[[joinrec$foreign_tbl]]
+    ## fdat <- db[unlist(joinrec$foreign_tbls)]
     func <- lookup_fun(joinrec$func[[1]])
-    df <- do.call(joinrec$func[[1]], c(joinrec$func_args[[1]], list(.dbtab = fdat)))
-    if(identical(keep, NA_character_))
-        keep <- joinrec$foreign_key
+    df <- do.call(joinrec$func[[1]], c(joinrec$func_args[[1]], list(.db = db)))
+    ## if(identical(keep, NA_character_))
+    ##     keep <- names(df)
     tab <- gen_table_data(recipe = tblrec, df = df, miss_recipe = miss_recipe, df_keepcols = keep)
     tab
 }

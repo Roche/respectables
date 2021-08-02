@@ -130,3 +130,42 @@ rand_posixct <- function( start, end,
          vals <- vals * multiplier
      as.POSIXct(vals, origin = pct_orig)
  }
+
+
+#' Initialize new columns of the correct length
+#'
+#' @param n numeric(1). The length (number of rows) to use when initializing.
+#' @param colnames character. Vector of column names to use. Can be omitted if \code{colclasses} is specified.
+#' @param colclass named character. Optional. Names must be identical to \code{colnames} if specified, values are classes such that \code{as(NA, .)} will succeed. Defaults to \code{NA} for each column, indicating character columns.
+#'
+#' @return A data.frame with the new columns and \code{n} rows.
+#' @export
+#' @examples
+#'
+#' init_new_cols(5, c("col1", "col2"))
+#'
+#' init_new_cols(5, colclasses = c(col1 = NA, col2 = "integer"))
+#'
+init_new_cols <- function(n, colnames = names(colclasses), colclasses = setNames(rep(NA, length(colnames)),
+                                                                                 colnames)) {
+
+
+    if(missing(colnames) && missing(colclasses))
+        stop("At least sone of colnames and colclasses must be set")
+    if(!identical(names(colclasses), colnames))
+        names(colclasses) <- colnames
+    val <- if(is.na(colclasses[1])) NA_character_ else as(NA, colclasses[1])
+
+    ret <- data.frame(stringsAsFactors = FALSE,
+                      dummyvar = rep(val, n))
+    names(ret) <- colnames[1]
+
+    for(i in seq_along(colnames)[-1]) {
+        col <- colnames[i]
+        colcls <- colclasses[col]
+        val <- if(is.na(colcls)) NA_character_ else as(NA, colcls)
+        ret[[col]] <- rep(val, n)
+    }
+
+    ret
+}

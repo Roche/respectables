@@ -3,6 +3,7 @@
 export(gen_data_db)
 export(gen_reljoin_table)
 export(gen_table_data)
+export(init_new_cols)
 export(inject_nas)
 export(lookup_fun)
 export(miss_as_block)

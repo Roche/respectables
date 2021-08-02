@@ -28,8 +28,13 @@
 #' @rdname reljoin_funcs
 #' @aliases reljoin_funcs
 #' @export
-rep_per_key <- function(keyvar, count, prop_present = 1) {
-    function(n, .dbtab, .df) {
+rep_per_key <- function(keyvar, tblnm, count, prop_present = 1) {
+    function(n, .db, .df) {
+        if(length(.db) == 1)
+            .dbtab <- .db[[1]]
+        else
+            .dbtab <- .db[[tblnm]]
+
         keys <- unique(.dbtab[[keyvar]])
 
         if(prop_present < 1) {
@@ -54,8 +59,13 @@ rep_per_key <- function(keyvar, count, prop_present = 1) {
 #' randrep_fun <- rand_per_key("id", mincount = 1, maxcount = 5)
 #' randrep_fun(.dbtab = foreign_tbl)
 #' @export
-rand_per_key <- function(keyvar, mincount = 1, maxcount = 20, prop_present = .5) {
-    function(n, .dbtab, .df) {
+rand_per_key <- function(keyvar, tblnm, mincount = 1, maxcount = 20, prop_present = .5) {
+    function(n, .db, .df) {
+        if(length(.db) == 1)
+            .dbtab <- .db[[1]]
+        else
+            .dbtab <- .db[[tblnm]]
+
         keys <- unique(.dbtab[[keyvar]])
 
         if(prop_present < 1) {
