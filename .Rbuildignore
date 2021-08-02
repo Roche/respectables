@@ -7,3 +7,4 @@
 ^docs$
 ^pkgdown$
 ^.github$
+^staged_dependencies.yaml$
