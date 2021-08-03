@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convenience helper functions for defining relational-join recipes — rep_per_key • respectables</title>
+<title>Initialize new columns of the correct length — init_new_cols • respectables</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Convenience helper functions for defining relational-join recipes — rep_per_key" />
-<meta property="og:description" content="These function constructors create functions suitable for use in
-relational-join recipes that expand or contract the row-dimension
-of the incoming data." />
+<meta property="og:title" content="Initialize new columns of the correct length — init_new_cols" />
+<meta property="og:description" content="Initialize new columns of the correct length" />
 
 
 
@@ -122,69 +120,57 @@ of the incoming data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convenience helper functions for defining relational-join recipes</h1>
+    <h1>Initialize new columns of the correct length</h1>
     
-    <div class="hidden name"><code>reljoin_funcs.Rd</code></div>
+    <div class="hidden name"><code>init_new_cols.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These function constructors create functions suitable for use in
-relational-join recipes that expand or contract the row-dimension
-of the incoming data.</p>
+    <p>Initialize new columns of the correct length</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rep_per_key</span>(<span class='no'>keyvar</span>, <span class='no'>count</span>, <span class='kw'>prop_present</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-
-<span class='fu'>rand_per_key</span>(<span class='no'>keyvar</span>, <span class='kw'>mincount</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>maxcount</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>prop_present</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
+    <pre class="usage"><span class='fu'>init_new_cols</span>(
+  <span class='no'>n</span>,
+  <span class='kw'>colnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>colclasses</span>),
+  <span class='kw'>colclasses</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>colnames</span>)), <span class='no'>colnames</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>keyvar</th>
-      <td><p>character(1).  The name of the column to treat as a foreign key.</p></td>
+      <th>n</th>
+      <td><p>numeric(1). The length (number of rows) to use when initializing.</p></td>
     </tr>
     <tr>
-      <th>count</th>
-      <td><p>numeric(1). The number of times each foreign-key value should appear in the
-scaffold data.</p></td>
+      <th>colnames</th>
+      <td><p>character. Vector of column names to use. Can be omitted if <code>colclasses</code> is specified.</p></td>
     </tr>
     <tr>
-      <th>prop_present</th>
-      <td><p>numeric(1). Proportion of the key values in the
-foreign    table     to    include    rows    for     in    the
-dimension-scaffold. Defaults to 1 (all values present).</p></td>
-    </tr>
-    <tr>
-      <th>mincount</th>
-      <td><p>numeric(1). Minimum replications for a present key</p></td>
-    </tr>
-    <tr>
-      <th>maxcount</th>
-      <td><p>numeric(1). Maximum replications for a pressent key</p></td>
+      <th>colclass</th>
+      <td><p>named character. Optional. Names must be identical to <code>colnames</code> if specified, values are classes such that <code>as(NA, .)</code> will succeed. Defaults to <code>NA</code> for each column, indicating character columns.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>rep_per_key</code> creates functions  which generate dimension-scaffolds
-that contain a constant number of  rows per key value (ie row of
-the incoming data), e.g., the the map from ADSL requires 3 rows per
-patient  (foreign key)  to synthesize  the long-form  PARAMCD-based
-ADTTE data.</p>
-<p><code>rand_per_key</code> creates functions which generate dimension-scaffolds
-which contain a uniformly distributed random number of rows
-per key value. An example of this would be that
-for adverse events, a patient can have anywehre from 0
-to 20 adverse events, each of which is a separate row
-in the new dimensions.</p>
+    <p>A data.frame with the new columns and <code>n</code> rows.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>foreign_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>)
-<span class='no'>perkey_fun</span> <span class='kw'>&lt;-</span> <span class='fu'>rep_per_key</span>(<span class='st'>"id"</span>, <span class='fl'>2</span>, <span class='fl'>.6</span>)
-<span class='fu'>perkey_fun</span>(<span class='kw'>.dbtab</span> <span class='kw'>=</span> <span class='no'>foreign_tbl</span>)</div><div class='output co'>#&gt; <span class='error'>Error in perkey_fun(.dbtab = foreign_tbl): unused argument (.dbtab = foreign_tbl)</span></div><div class='input'>
-<span class='no'>randrep_fun</span> <span class='kw'>&lt;-</span> <span class='fu'>rand_per_key</span>(<span class='st'>"id"</span>, <span class='kw'>mincount</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>maxcount</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'>randrep_fun</span>(<span class='kw'>.dbtab</span> <span class='kw'>=</span> <span class='no'>foreign_tbl</span>)</div><div class='output co'>#&gt; <span class='error'>Error in randrep_fun(.dbtab = foreign_tbl): unused argument (.dbtab = foreign_tbl)</span></div></pre>
+    <pre class="examples"><div class='input'>
+<span class='fu'>init_new_cols</span>(<span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"col1"</span>, <span class='st'>"col2"</span>))</div><div class='output co'>#&gt;   col1 col2
+#&gt; 1 &lt;NA&gt; &lt;NA&gt;
+#&gt; 2 &lt;NA&gt; &lt;NA&gt;
+#&gt; 3 &lt;NA&gt; &lt;NA&gt;
+#&gt; 4 &lt;NA&gt; &lt;NA&gt;
+#&gt; 5 &lt;NA&gt; &lt;NA&gt;</div><div class='input'>
+<span class='fu'>init_new_cols</span>(<span class='fl'>5</span>, <span class='kw'>colclasses</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>col1</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col2</span> <span class='kw'>=</span> <span class='st'>"integer"</span>))</div><div class='output co'>#&gt;   col1 col2
+#&gt; 1 &lt;NA&gt;   NA
+#&gt; 2 &lt;NA&gt;   NA
+#&gt; 3 &lt;NA&gt;   NA
+#&gt; 4 &lt;NA&gt;   NA
+#&gt; 5 &lt;NA&gt;   NA</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
