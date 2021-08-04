@@ -22,6 +22,7 @@
 #' @param keyvar character(1).  The name of the column to treat as a foreign key.
 #' @param count numeric(1). The number of times each foreign-key value should appear in the
 #' scaffold data.
+#' @param tblnm character(1). The name of the table in the database in which to find the keyvar
 #' @param prop_present numeric(1). Proportion of the key values in the
 #'     foreign    table     to    include    rows    for     in    the
 #'     dimension-scaffold. Defaults to 1 (all values present).
@@ -53,11 +54,11 @@ rep_per_key <- function(keyvar, tblnm, count, prop_present = 1) {
 #' @rdname reljoin_funcs
 #' @examples
 #' foreign_tbl <- data.frame(id = 1:5)
-#' perkey_fun <- rep_per_key("id", 2, .6)
-#' perkey_fun(.dbtab = foreign_tbl)
+#' perkey_fun <- rep_per_key("id", tblnm = "foreign_tbl",  2, .6)
+#' perkey_fun(.db = list(foreign_tbl = foreign_tbl))
 #'
-#' randrep_fun <- rand_per_key("id", mincount = 1, maxcount = 5)
-#' randrep_fun(.dbtab = foreign_tbl)
+#' randrep_fun <- rand_per_key("id", tblnm = "foreign_tbl", mincount = 1, maxcount = 5)
+#' randrep_fun(.db = list(foreign_tbl = foreign_tbl))
 #' @export
 rand_per_key <- function(keyvar, tblnm, mincount = 1, maxcount = 20, prop_present = .5) {
     function(n, .db, .df) {

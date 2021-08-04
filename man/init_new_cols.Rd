@@ -15,7 +15,7 @@ init_new_cols(
 
 \item{colnames}{character. Vector of column names to use. Can be omitted if \code{colclasses} is specified.}
 
-\item{colclass}{named character. Optional. Names must be identical to \code{colnames} if specified, values are classes such that \code{as(NA, .)} will succeed. Defaults to \code{NA} for each column, indicating character columns.}
+\item{colclasses}{named character. Optional. Names must be identical to \code{colnames} if specified, values are classes such that \code{as(NA, .)} will succeed. Defaults to \code{NA} for each column, indicating character columns.}
 }
 \value{
 A data.frame with the new columns and \code{n} rows.

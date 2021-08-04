@@ -1,5 +1,6 @@
 #' @importFrom stats runif setNames
 #' @importFrom methods is
+#' @importFrom tibble tribble
 NULL
 
 #' Sentinel Values for Recipes

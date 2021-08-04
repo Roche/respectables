@@ -6,12 +6,14 @@
 \alias{rand_per_key}
 \title{Convenience helper functions for defining relational-join recipes}
 \usage{
-rep_per_key(keyvar, count, prop_present = 1)
+rep_per_key(keyvar, tblnm, count, prop_present = 1)
 
-rand_per_key(keyvar, mincount = 1, maxcount = 20, prop_present = 0.5)
+rand_per_key(keyvar, tblnm, mincount = 1, maxcount = 20, prop_present = 0.5)
 }
 \arguments{
 \item{keyvar}{character(1).  The name of the column to treat as a foreign key.}
+
+\item{tblnm}{character(1). The name of the table in the database in which to find the keyvar}
 
 \item{count}{numeric(1). The number of times each foreign-key value should appear in the
 scaffold data.}
@@ -45,9 +47,9 @@ in the new dimensions.
 }
 \examples{
 foreign_tbl <- data.frame(id = 1:5)
-perkey_fun <- rep_per_key("id", 2, .6)
-perkey_fun(.dbtab = foreign_tbl)
+perkey_fun <- rep_per_key("id", tblnm = "foreign_tbl",  2, .6)
+perkey_fun(.db = list(foreign_tbl = foreign_tbl))
 
-randrep_fun <- rand_per_key("id", mincount = 1, maxcount = 5)
-randrep_fun(.dbtab = foreign_tbl)
+randrep_fun <- rand_per_key("id", tblnm = "foreign_tbl", mincount = 1, maxcount = 5)
+randrep_fun(.db = list(foreign_tbl = foreign_tbl))
 }
