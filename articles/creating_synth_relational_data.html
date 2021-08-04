@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">respectables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <h1 data-toc-skip>Specifying, Simulating and Synthesizing Relational Data in R</h1>
                         <h4 class="author">Gabriel Becker</h4>
             
-            <h4 class="date">2021-08-03</h4>
+            <h4 class="date">2021-08-04</h4>
       
       
       <div class="hidden name"><code>creating_synth_relational_data.Rmd</code></div>
@@ -196,13 +196,13 @@
 
 <span class="no">sillydata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_table_data.html">gen_table_data</a></span>(<span class="kw">N</span> <span class="kw">=</span> <span class="fl">500</span>, <span class="kw">recipe</span> <span class="kw">=</span> <span class="no">recipe</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sillydata</span>)</pre></body></html></div>
-<pre><code>##      ID STUFFLEVEL   KEYSIZE           ACCT_OPEN         ACCT_CLOSED
-## 1 ID001        low 26.379436 2020-06-23 16:49:36                &lt;NA&gt;
-## 2 ID002       high 35.592755 2018-06-11 03:53:45 2018-08-23 07:53:47
-## 3 ID003       high 46.876945 2021-04-12 18:44:49                &lt;NA&gt;
-## 4 ID004        low 24.586913 2016-02-24 13:58:52                &lt;NA&gt;
-## 5 ID005        low  9.784794 2019-01-08 17:52:29                &lt;NA&gt;
-## 6 ID006       high 41.993237 2020-08-26 21:36:03 2021-02-11 15:33:54</code></pre>
+<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN         ACCT_CLOSED
+## 1 ID001        low 10.57716 2015-10-13 22:52:05                &lt;NA&gt;
+## 2 ID002        low 18.72725 2020-09-10 13:43:45                &lt;NA&gt;
+## 3 ID003       high 76.01866 2016-03-26 06:36:20                &lt;NA&gt;
+## 4 ID004        low 10.76803 2018-09-29 02:40:45 2021-04-13 21:48:46
+## 5 ID005        low 16.40536 2016-05-08 08:10:06                &lt;NA&gt;
+## 6 ID006       high 61.84662 2019-03-31 16:50:40                &lt;NA&gt;</code></pre>
 <p>We can see that the conditional distribution worked by plotting the data densities for each <code>STUFFLEVEL</code> value</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>))
 
@@ -295,20 +295,20 @@
 <span class="co">## already created sillydata dataset</span>
 <span class="no">buysdf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_reljoin_table.html">gen_reljoin_table</a></span>(<span class="no">sjrecipe</span>, <span class="no">buys_rec</span>, <span class="kw">db</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">sillydata</span> <span class="kw">=</span> <span class="no">sillydata</span>))
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">buysdf</span>)</pre></body></html></div>
-<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN         ACCT_CLOSED BUYID
-## 3 ID001        low 26.37944 2020-06-23 16:49:36                &lt;NA&gt;   763
-## 1 ID001        low 26.37944 2020-06-23 16:49:36                &lt;NA&gt;   836
-## 2 ID001        low 26.37944 2020-06-23 16:49:36                &lt;NA&gt;   897
-## 6 ID002       high 35.59275 2018-06-11 03:53:45 2018-08-23 07:53:47   249
-## 4 ID002       high 35.59275 2018-06-11 03:53:45 2018-08-23 07:53:47   251
-## 7 ID002       high 35.59275 2018-06-11 03:53:45 2018-08-23 07:53:47   256
+<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN ACCT_CLOSED BUYID
+## 1 ID001        low 10.57716 2015-10-13 22:52:05        &lt;NA&gt;   752
+## 2 ID002        low 18.72725 2020-09-10 13:43:45        &lt;NA&gt;  1078
+## 4 ID002        low 18.72725 2020-09-10 13:43:45        &lt;NA&gt;  1177
+## 3 ID002        low 18.72725 2020-09-10 13:43:45        &lt;NA&gt;  1237
+## 8 ID003       high 76.01866 2016-03-26 06:36:20        &lt;NA&gt;    64
+## 6 ID003       high 76.01866 2016-03-26 06:36:20        &lt;NA&gt;   967
 ##               BUYDATE PRODUCTID         DESC
-## 3 2020-09-03 17:47:06     PROD2 HLight Fluid
-## 1 2020-11-26 15:51:10     PROD5     Thingbat
-## 2 2021-02-04 01:45:18     PROD2 HLight Fluid
-## 6 2018-06-20 01:39:38     PROD2 HLight Fluid
-## 4 2018-06-24 22:06:14     PROD5     Thingbat
-## 7 2018-07-17 12:35:11     PROD1       Doodad</code></pre>
+## 1 2020-06-14 04:07:37     PROD4      Spanner
+## 2 2021-04-27 13:20:12     PROD4      Spanner
+## 4 2021-06-23 07:02:21     PROD2 HLight Fluid
+## 3 2021-07-30 06:41:08     PROD6  Thingbat v2
+## 8 2016-08-23 15:13:19     PROD5     Thingbat
+## 6 2021-01-26 22:56:14     PROD5     Thingbat</code></pre>
 </div>
 </div>
   </div>

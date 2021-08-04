@@ -3,7 +3,7 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   creating_synth_relational_data: creating_synth_relational_data.html
-last_built: 2021-08-03T19:19Z
+last_built: 2021-08-04T08:28Z
 urls:
   reference: https://roche.github.io/respectables//reference
   article: https://roche.github.io/respectables//articles
