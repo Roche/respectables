@@ -108,7 +108,7 @@ We define a *scaffolding join recipe* as a recipe which creates the
 *scaffold table* for a prospective data table given a collection
 of already existing tables which contains
 
-A scaffolding join recipe is a tibble with the following columnns:
+A scaffolding join recipe is a tibble with the following columns:
 
 - *foreign_tbl* - The name of the foreign table in which to find the
   key

@@ -1,0 +1,141 @@
+---
+title: "Introduction to Respectables"
+author: "Adrian Waddell"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introcduction to Respectables}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction 
+
+The `respecatlbes` package provides a framework to first define 
+
+* recipes define a way to derive variables
+* variables are derived using generating functions
+
+## Simple Dataset
+
+Lets start defining a simple dataset `dm` with a single variable `id`.
+
+```{r}
+library(respectables)
+library(dplyr)
+```
+
+```{r}
+gen_id <- function(n) {
+  paste0("id-", 1:n)
+}
+
+dm_recipe <- tribble(
+  ~variables, ~dependencies,  ~func,   ~func_args,
+  "id",       no_deps,        gen_id,  no_args
+)
+
+gen_table_data(N = 2, recipe = dm_recipe)
+```
+
+Note that the argument `n` is defined by `respectables`, in this case it is equal `N`.
+
+We can use the recepie `dm_recepie` again to create a different dataset:
+
+```{r}
+gen_table_data(N = 5, recipe = dm_recipe)
+```
+
+### Adding Multiple Variables
+
+We will now specify the variables `height` and `weight` to the `dm` recipe:
+
+```{r}
+gen_hw <- function(n) {
+  bmi <- 17 + abs(rnorm(n, mean = 3, sd = 3))
+  
+  data.frame(height = runif(n, min = 1.5, 1.95)) %>%
+    mutate(weight = bmi * height^2)
+}
+
+dm_recipe <- tribble(
+  ~variables,               ~dependencies,  ~func,   ~func_args,
+  "id",                     no_deps,        gen_id,  no_args,
+   c("height", "weight"),   no_deps,        gen_hw,  no_args
+)
+
+gen_table_data(N = 2, recipe = dm_recipe)
+```
+
+Note that we used random number generators in `gen_hw`, hence rerunning `gen_table_data` will give different values
+
+```{r}
+gen_table_data(N = 2, recipe = dm_recipe)
+```
+
+
+### Variable Dependencies
+
+We will now continue our `dm` example by defining the variable `age` which for illustrative purposes is dependent
+on the `height`.
+
+
+```{r}
+gen_age <- function(n, .df) {
+  .df %>%
+    transmute(age = height*25)
+}
+
+dm_recipe <- tribble(
+  ~variables,               ~dependencies,  ~func,   ~func_args,
+  "id",                     no_deps,        gen_id,  no_args,
+   c("height", "weight"),   no_deps,        gen_hw,  no_args,
+  "age",                    "height",       gen_age, no_args
+)
+
+gen_table_data(N = 2, recipe = dm_recipe)
+```
+
+Note that `respectables` creates the arguments `n` and `.df` on the fly. Also, `respectables` determines the evaluation
+order of the variables based on the dependency structure. That is, `respectables` does not guarantee to build the 
+resulting data frame using the recipe row by row.
+
+### Configurable Arguments
+
+If we plan to make configurable variable generating functions we can specify the arguments in the recipe
+
+```{r}
+gen_color <- function(n, colors = colors()) {
+  data.frame(color = sample(colors, n, replace = TRUE))
+}
+
+dm_recipe <- tribble(
+  ~variables,               ~dependencies,  ~func,   ~func_args,
+  "id",                     no_deps,        gen_id,     no_args,
+   c("height", "weight"),   no_deps,        gen_hw,     no_args,
+  "age",                    "height",       gen_age,    no_args,
+  "color",                  no_deps,        gen_color,  list(color = c("blue", "red"))
+)
+
+gen_table_data(N = 4, recipe = dm_recipe)
+```
+
+
+## Example `dplyr`
+
+Let's map the following code into `respectible` recipes:
+
+```{r}
+df <- iris %>% 
+  select(Sepal.Length, Species) %>%
+  mutate(SPECIES = toupper(Species))
+```
+
+the recipe for the `select` and `mutate` steps would be
+

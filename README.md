@@ -7,7 +7,7 @@
 [![R CMD Check](https://github.com/Roche/respectables/actions/workflows/build-install-check.yaml/badge.svg)](https://github.com/Roche/respectables/actions/workflows/build-install-check.yaml)
 [![Roxygen](https://github.com/Roche/respectables/actions/workflows/roxygen.yaml/badge.svg)](https://github.com/Roche/respectables/actions/workflows/roxygen.yaml)
 
-`respectables` is an R package to ...
+`respectables` is an R package to relationally 
 
 # Installation
 

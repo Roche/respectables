@@ -121,7 +121,7 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
                      paste(unlist(depdf$variables), collapse = ", ")))
 
     ## put them in the order they appear in the recipe, this ultimately may not be what we want
-    patdf <- patdf[,c(names(df), unlist(recipe$variables))]
+    patdf <- patdf[,c(names(df), unlist(recipe$variables)), drop = FALSE]
     if("keep" %in% names(recipe)) {
         if(length(df_keepcols) == 0 || all(is.na(df_keepcols)) || isTRUE(df_keepcols)) {
             df_keepcols <- names(df)
