@@ -127,7 +127,7 @@ jobs:
           }
         shell: Rscript {0}
         env:
-          GITHUB_PAT: ${{ secrets.REPO_GITHUB_TOKEN }} # or ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PAT: ${{ secrets.AW_GITHUB_PAT }} # or ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build R package
         run: |
