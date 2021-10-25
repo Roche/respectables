@@ -18,7 +18,12 @@ inject_nas(tbl, recipe)
 Apply random or systematic missingness to existing data according to recipe
 }
 \details{
-Unlike in data-generation recipes, the \code{func} column in a missingness recipe must return a logical vector of length n or  an n x k logical matrix, where n is the number of rows in \code{.df} and \code{k} is the number of variables listed in this row of the recipe. A vector is only allowed when only one variable is listed in the recipe row (ie \code{k=1}). \code{TRUE} in the return value indicates that position in the column being processed should be set to missing (\code{NA}), while \code{FALSE} indicates the value already there should remain unchanged.
+Unlike in data-generation recipes, the \code{func} column in a missingness recipe must return a logical
+  vector of length n or  an n x k logical matrix, where n is the number of rows in \code{.df} and \code{k} is the
+  number of variables listed in this row of the recipe. A vector is only allowed when only one variable is listed in
+  the recipe row (ie \code{k=1}). \code{TRUE} in the return value indicates that position in the column being
+  processed should be set to missing (\code{NA}), while \code{FALSE} indicates the value already there should remain
+  unchanged.
 }
 \examples{
 library(tibble)

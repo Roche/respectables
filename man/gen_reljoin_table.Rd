@@ -13,13 +13,17 @@ gen_reljoin_table(
 )
 }
 \arguments{
-\item{joinrec}{tibble. Recipe for synthesizing core/seed data based of a foreign key present in an existing table within \code{db}}
+\item{joinrec}{tibble. Recipe for synthesizing core/seed data based of a foreign key present in an existing table
+within \code{db}}
 
-\item{tblrec}{tibble. Recipe for generating the remainder of the new table, via \code{\link{gen_table_data}}, building on initial table generated using \code{joinrec}.}
+\item{tblrec}{tibble. Recipe for generating the remainder of the new table, via \code{\link{gen_table_data}},
+building on initial table generated using \code{joinrec}.}
 
-\item{miss_recipe}{tibble or NULL. A missingness recipe, if desired, to be applied after data generation via \code{\link{inject_nas}}.}
+\item{miss_recipe}{tibble or NULL. A missingness recipe, if desired, to be applied after data generation via
+\code{\link{inject_nas}}.}
 
-\item{db}{list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table references in \code{joinrec}.}
+\item{db}{list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table
+references in \code{joinrec}.}
 
 \item{keep}{TODO}
 }
@@ -52,7 +56,7 @@ the  \emph{dimensions} of the  new data table.
 \code{tblrec} recipe on the scaffolding provided by the newly
 dimensioned table generated in step 1.
 
-3. Injecting missingness (optiona) using \code{missrec}.
+3. Injecting missingness (optional) using \code{missrec}.
 }
 \seealso{
 \code{\link{reljoin_funcs}}
