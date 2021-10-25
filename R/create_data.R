@@ -20,13 +20,15 @@ no_args <- list()
 
 
 #' Generate variables in a table
+#'
+#'
 #' @param N numeric(1). Number of rows to generate. Defaults to 400, or the number of rows in \code{df} if provided.
 #' @param recipe tibble. A recipe for generating variables into the dataset. see \code{Details}.
 #' @param miss_recipe tibble. A recipe for generating missingness positions, or \code{NULL} (the default).
-
-#' @param df data.frame/tibble. Existing partial data which new variables should be added to, or \code{NULL} (the default).
-#' @param df_keepcols logical. which columns from \code{df} should be retained in the resulting
-#' dataset (by position). Defaults to all columns present in \code{df}.
+#' @param df data.frame/tibble. Existing partial data which new variables should be added to, or \code{NULL} (the
+#'   default).
+#' @param df_keepcols logical. which columns from \code{df} should be retained in the resulting dataset (by position).
+#'   Defaults to all columns present in \code{df}.
 #'
 #' @details
 #'
@@ -146,10 +148,16 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
 
 
 #' Generate synthetic data relationally-linked to existing data
-#' @param joinrec tibble. Recipe for synthesizing core/seed data based of a foreign key present in an existing table within \code{db}
-#' @param tblrec tibble. Recipe for generating the remainder of the new table, via \code{\link{gen_table_data}}, building on initial table generated using \code{joinrec}.
-#' @param miss_recipe tibble or NULL. A missingness recipe, if desired, to be applied after data generation via \code{\link{inject_nas}}.
-#' @param db list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table references in \code{joinrec}.
+#'
+#'
+#' @param joinrec tibble. Recipe for synthesizing core/seed data based of a foreign key present in an existing table
+#'   within \code{db}
+#' @param tblrec tibble. Recipe for generating the remainder of the new table, via \code{\link{gen_table_data}},
+#'   building on initial table generated using \code{joinrec}.
+#' @param miss_recipe tibble or NULL. A missingness recipe, if desired, to be applied after data generation via
+#'   \code{\link{inject_nas}}.
+#' @param db list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table
+#'   references in \code{joinrec}.
 #' @param keep TODO
 #' @return The newly synthesized data table.
 #'
@@ -176,7 +184,7 @@ gen_table_data <- function(N = if(is.null(df)) 400 else NROW(df),
 #' \code{tblrec} recipe on the scaffolding provided by the newly
 #' dimensioned table generated in step 1.
 #'
-#' 3. Injecting missingness (optiona) using \code{missrec}.
+#' 3. Injecting missingness (optional) using \code{missrec}.
 #'
 #' @seealso \code{\link{reljoin_funcs}}
 #' @export
@@ -194,7 +202,12 @@ gen_reljoin_table <- function(joinrec, tblrec, miss_recipe = NULL, db, keep = NA
 #' Apply random or systematic missingness to existing data according to recipe
 #' @param tbl data.frame/tibble. The already generated data to inject missingness into
 #' @param recipe tibble. A recipe for generating missingness positions
-#' @details Unlike in data-generation recipes, the \code{func} column in a missingness recipe must return a logical vector of length n or  an n x k logical matrix, where n is the number of rows in \code{.df} and \code{k} is the number of variables listed in this row of the recipe. A vector is only allowed when only one variable is listed in the recipe row (ie \code{k=1}). \code{TRUE} in the return value indicates that position in the column being processed should be set to missing (\code{NA}), while \code{FALSE} indicates the value already there should remain unchanged.
+#' @details Unlike in data-generation recipes, the \code{func} column in a missingness recipe must return a logical
+#'   vector of length n or  an n x k logical matrix, where n is the number of rows in \code{.df} and \code{k} is the
+#'   number of variables listed in this row of the recipe. A vector is only allowed when only one variable is listed in
+#'   the recipe row (ie \code{k=1}). \code{TRUE} in the return value indicates that position in the column being
+#'   processed should be set to missing (\code{NA}), while \code{FALSE} indicates the value already there should remain
+#'   unchanged.
 #'
 #' @return \code{tbl}, with missingness injected into it as laid out by \code{recipe}
 #' @examples
