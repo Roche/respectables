@@ -17,19 +17,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction 
 
-The `respecatlbes` package provides a framework to first define 
+The `respecatlbes` package provides a framework to
 
-* recipes define a way to derive variables
-* variables are derived using generating functions
+* create recipes define a way to derive interdependent variables
+* variables are created using generating functions
 
-## Simple Dataset
-
-Lets start defining a simple dataset `dm` with a single variable `id`.
+For this vignette we load the `respecatbles` and `dplyr` package:
 
 ```{r}
 library(respectables)
 library(dplyr)
 ```
+
+Note the `respectables` package is still under development.
+
+## Simple Dataset
+
+Lets start defining a simple dataset `dm` with a single variable `id`.
 
 ```{r}
 gen_id <- function(n) {
@@ -127,15 +131,108 @@ gen_table_data(N = 4, recipe = dm_recipe)
 ```
 
 
-## Example `dplyr`
+### Injecting Missing Data
+
+The `miss_recipe` argument in `gen_table_data` can be used to inject missing values in the last step when creating
+data with `gen_table_data`. That is, first the data generation recipe is executed and then the missing data is injected.
+Hence, all variables are available at execution time and the `.df` argument is supplied to the `func`.
+
+
+```{r}
+gen_alternate_na <- function(.df) {
+  n <- nrow(.df)
+  rep(c(TRUE, FALSE), length.out = n)
+}
+
+dm_na_recipe <- tribble(
+  ~variables,       ~func,             ~func_args,
+  "age",            gen_alternate_na,  no_args
+)
+
+gen_table_data(N = 4, recipe = dm_recipe, miss_recipe = dm_na_recipe)
+```
+
+Note that this currently only works with one variable per row in the missing recipe. This is a feature that we are still
+working on to allow for more complex missing structure definition.
+
+## Scaffolding
+
+For this example we create a data frame `aseq` with the variable `seqterm` being `c("step 1", ..., "step i")`, where `i`
+is extracted from the variable `id`.
+
+```{r}
+dm <- gen_table_data(N = 3, recipe = dm_recipe)
+
+# grow dataset
+gen_seq <- function(.db) {
+  
+  dm <- .db$dm
+  
+  ni <- as.numeric(substring(dm$id, 4))
+  
+  df_grow <- data.frame(
+    id = rep(dm$id, ni),
+    seq = unlist(sapply(ni, seq, from = 1))
+  )
+  
+  left_join(dm, df_grow, by = "id")
+}
+
+aseq_scf_recipe <- tribble(
+  ~foreign_tbl, ~foreign_key, ~func,     ~func_args,
+  "dm",         "id",         gen_seq,   no_args     
+)
+
+gen_seq_term <- function(.df, ...) {
+  data.frame(seqterm = paste("step", .df$seq))
+}
+
+aseq_recipe <- tribble(
+  ~variables,      ~dependencies,  ~func,            ~func_args,
+  "seqterm",       "seq",          gen_seq_term,     no_args
+)
+
+gen_reljoin_table(joinrec = aseq_scf_recipe, tblrec = aseq_recipe, db = list(dm = dm))
+```
+
+The steps here are:
+
+1. use `joinrec` to grow a new data frame, say `A`, possibly from `db`
+2. call `gen_table_data` with the following arguments
+    * `A` for `df`
+    *  `tblrec` for `recipe`
+    * forward `miss_recipe`
+
+Note that this functionality is under development. Currently `aseq_scf_recipe` needs to be a tibble with one row, and
+the `foreign_key` is currently not used.
+
+
+## Compare `dplyr`
+
+*This section needs further work*.
 
 Let's map the following code into `respectible` recipes:
 
 ```{r}
-df <- iris %>% 
-  select(Sepal.Length, Species) %>%
-  mutate(SPECIES = toupper(Species))
+iris %>% 
+  mutate(SPECIES = toupper(Species)) %>%
+  head()
 ```
 
-the recipe for the `select` and `mutate` steps would be
+There are multiple solutions to map this to the `respectables` framework.
 
+```{r}
+gen_toupper <- function(varname, .df, ...) {
+   toupper(.df[[varname]])
+}
+
+rcp <- tribble(
+    ~variables, ~dependencies,  ~func,          ~func_args,
+    "SPECIES",  "Species",       gen_toupper,   list(varname = "Species") 
+)
+
+gen_table_data(recipe = rcp, df = iris) %>%
+  head()
+```
+
+Note in `gen_toupper` we use the ellipsis `...` to absorb not used arguments such as `n`.
