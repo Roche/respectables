@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">respectables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4.9000</span>
       </span>
     </div>
 
@@ -55,6 +55,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/creating_synth_relational_data.html">Specifying, Simulating and Synthesizing Relational Data in R</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction to Respectables</a>
     </li>
   </ul>
 </li>
@@ -82,7 +85,7 @@
       <h1 data-toc-skip>Specifying, Simulating and Synthesizing Relational Data in R</h1>
                         <h4 class="author">Gabriel Becker</h4>
             
-            <h4 class="date">2021-08-04</h4>
+            <h4 class="date">2021-10-25</h4>
       
       
       <div class="hidden name"><code>creating_synth_relational_data.Rmd</code></div>
@@ -127,7 +130,7 @@
 <p>In the context of the construction of interrelated tables, we define the <em>scaffold table</em> for a to-be-constructed dependent table — in our formulation one that once constructed, will have a foreign key relationship with another already existing table — as a table which contains the foreign key values and, optionally any other values from the foreign table, that will ultimately appear in the created table, but none of the variables which will reside primarily in the new table. We note that the foreign key values in the <em>scaffold table</em> need not be unique, as they would generally be in the foreign table, and that not all of the values for the key present in the foreign table need appear in the scaffold table, as seen below.</p>
 <p><img src="scaffold_figure.png"><!-- --></p>
 <p>We define a <em>scaffolding join recipe</em> as a recipe which creates the <em>scaffold table</em> for a prospective data table given a collection of already existing tables which contains</p>
-<p>A scaffolding join recipe is a tibble with the following columnns:</p>
+<p>A scaffolding join recipe is a tibble with the following columns:</p>
 <ul>
 <li>
 <em>foreign_tbl</em> - The name of the foreign table in which to find the key</li>
@@ -196,13 +199,13 @@
 
 <span class="no">sillydata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_table_data.html">gen_table_data</a></span>(<span class="kw">N</span> <span class="kw">=</span> <span class="fl">500</span>, <span class="kw">recipe</span> <span class="kw">=</span> <span class="no">recipe</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sillydata</span>)</pre></body></html></div>
-<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN         ACCT_CLOSED
-## 1 ID001        low 10.57716 2015-10-13 22:52:05                &lt;NA&gt;
-## 2 ID002        low 18.72725 2020-09-10 13:43:45                &lt;NA&gt;
-## 3 ID003       high 76.01866 2016-03-26 06:36:20                &lt;NA&gt;
-## 4 ID004        low 10.76803 2018-09-29 02:40:45 2021-04-13 21:48:46
-## 5 ID005        low 16.40536 2016-05-08 08:10:06                &lt;NA&gt;
-## 6 ID006       high 61.84662 2019-03-31 16:50:40                &lt;NA&gt;</code></pre>
+<pre><code>##      ID STUFFLEVEL   KEYSIZE           ACCT_OPEN         ACCT_CLOSED
+## 1 ID001       high 41.199576 2020-10-27 21:44:55                &lt;NA&gt;
+## 2 ID002       high 41.587670 2017-07-13 16:45:25 2017-09-23 14:11:46
+## 3 ID003        low -5.579765 2019-12-30 14:01:13 2020-04-14 21:51:55
+## 4 ID004       high 42.337936 2018-01-29 03:33:32                &lt;NA&gt;
+## 5 ID005        low 18.070512 2020-09-27 10:39:46                &lt;NA&gt;
+## 6 ID006       high 61.754999 2016-06-02 18:56:55                &lt;NA&gt;</code></pre>
 <p>We can see that the conditional distribution worked by plotting the data densities for each <code>STUFFLEVEL</code> value</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>))
 
@@ -295,20 +298,20 @@
 <span class="co">## already created sillydata dataset</span>
 <span class="no">buysdf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gen_reljoin_table.html">gen_reljoin_table</a></span>(<span class="no">sjrecipe</span>, <span class="no">buys_rec</span>, <span class="kw">db</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">sillydata</span> <span class="kw">=</span> <span class="no">sillydata</span>))
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">buysdf</span>)</pre></body></html></div>
-<pre><code>##      ID STUFFLEVEL  KEYSIZE           ACCT_OPEN ACCT_CLOSED BUYID
-## 1 ID001        low 10.57716 2015-10-13 22:52:05        &lt;NA&gt;   752
-## 2 ID002        low 18.72725 2020-09-10 13:43:45        &lt;NA&gt;  1078
-## 4 ID002        low 18.72725 2020-09-10 13:43:45        &lt;NA&gt;  1177
-## 3 ID002        low 18.72725 2020-09-10 13:43:45        &lt;NA&gt;  1237
-## 8 ID003       high 76.01866 2016-03-26 06:36:20        &lt;NA&gt;    64
-## 6 ID003       high 76.01866 2016-03-26 06:36:20        &lt;NA&gt;   967
-##               BUYDATE PRODUCTID         DESC
-## 1 2020-06-14 04:07:37     PROD4      Spanner
-## 2 2021-04-27 13:20:12     PROD4      Spanner
-## 4 2021-06-23 07:02:21     PROD2 HLight Fluid
-## 3 2021-07-30 06:41:08     PROD6  Thingbat v2
-## 8 2016-08-23 15:13:19     PROD5     Thingbat
-## 6 2021-01-26 22:56:14     PROD5     Thingbat</code></pre>
+<pre><code>##      ID STUFFLEVEL   KEYSIZE           ACCT_OPEN         ACCT_CLOSED BUYID
+## 4 ID001       high 41.199576 2020-10-27 21:44:55                &lt;NA&gt;   767
+## 2 ID001       high 41.199576 2020-10-27 21:44:55                &lt;NA&gt;  1076
+## 5 ID001       high 41.199576 2020-10-27 21:44:55                &lt;NA&gt;  1079
+## 1 ID001       high 41.199576 2020-10-27 21:44:55                &lt;NA&gt;  1135
+## 3 ID001       high 41.199576 2020-10-27 21:44:55                &lt;NA&gt;  1222
+## 7 ID003        low -5.579765 2019-12-30 14:01:13 2020-04-14 21:51:55   561
+##               BUYDATE PRODUCTID        DESC
+## 4 2020-11-11 16:17:47     PROD6 Thingbat v2
+## 2 2021-08-08 08:17:40     PROD6 Thingbat v2
+## 5 2021-08-09 02:09:45     PROD5    Thingbat
+## 1 2021-09-12 22:42:44     PROD1      Doodad
+## 3 2021-10-22 12:03:25     PROD5    Thingbat
+## 7 2020-03-17 07:10:14     PROD1      Doodad</code></pre>
 </div>
 </div>
   </div>

@@ -74,7 +74,7 @@ it directly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">respectables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4.9000</span>
       </span>
     </div>
 
@@ -98,6 +98,9 @@ it directly." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/creating_synth_relational_data.html">Specifying, Simulating and Synthesizing Relational Data in R</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction to Respectables</a>
     </li>
   </ul>
 </li>
@@ -152,16 +155,16 @@ it directly.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>lookup_fun</span>(<span class='no'>rnorm</span>)</div><div class='output co'>#&gt; function (n, mean = 0, sd = 1) 
 #&gt; .Call(C_rnorm, n, mean, sd)
-#&gt; &lt;bytecode: 0x555f80b6abd0&gt;
+#&gt; &lt;bytecode: 0x55d775b34908&gt;
 #&gt; &lt;environment: namespace:stats&gt;</div><div class='input'><span class='fu'>lookup_fun</span>(<span class='st'>"rnorm"</span>)</div><div class='output co'>#&gt; function (n, mean = 0, sd = 1) 
 #&gt; .Call(C_rnorm, n, mean, sd)
-#&gt; &lt;bytecode: 0x555f80b6abd0&gt;
+#&gt; &lt;bytecode: 0x55d775b34908&gt;
 #&gt; &lt;environment: namespace:stats&gt;</div><div class='input'><span class='fu'>lookup_fun</span>(<span class='st'>"stats::rnorm"</span>)</div><div class='output co'>#&gt; function (n, mean = 0, sd = 1) 
 #&gt; .Call(C_rnorm, n, mean, sd)
-#&gt; &lt;bytecode: 0x555f80b6abd0&gt;
+#&gt; &lt;bytecode: 0x55d775b34908&gt;
 #&gt; &lt;environment: namespace:stats&gt;</div><div class='input'><span class='fu'>lookup_fun</span>(<span class='st'>"stats:::rnorm"</span>)</div><div class='output co'>#&gt; function (n, mean = 0, sd = 1) 
 #&gt; .Call(C_rnorm, n, mean, sd)
-#&gt; &lt;bytecode: 0x555f80b6abd0&gt;
+#&gt; &lt;bytecode: 0x55d775b34908&gt;
 #&gt; &lt;environment: namespace:stats&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

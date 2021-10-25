@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">respectables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4.9000</span>
       </span>
     </div>
 
@@ -96,6 +96,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/creating_synth_relational_data.html">Specifying, Simulating and Synthesizing Relational Data in R</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction to Respectables</a>
     </li>
   </ul>
 </li>
@@ -142,19 +145,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>joinrec</th>
-      <td><p>tibble. Recipe for synthesizing core/seed data based of a foreign key present in an existing table within <code>db</code></p></td>
+      <td><p>tibble. Recipe for synthesizing core/seed data based of a foreign key present in an existing table
+within <code>db</code></p></td>
     </tr>
     <tr>
       <th>tblrec</th>
-      <td><p>tibble. Recipe for generating the remainder of the new table, via <code><a href='gen_table_data.html'>gen_table_data</a></code>, building on initial table generated using <code>joinrec</code>.</p></td>
+      <td><p>tibble. Recipe for generating the remainder of the new table, via <code><a href='gen_table_data.html'>gen_table_data</a></code>,
+building on initial table generated using <code>joinrec</code>.</p></td>
     </tr>
     <tr>
       <th>miss_recipe</th>
-      <td><p>tibble or NULL. A missingness recipe, if desired, to be applied after data generation via <code><a href='inject_nas.html'>inject_nas</a></code>.</p></td>
+      <td><p>tibble or NULL. A missingness recipe, if desired, to be applied after data generation via
+<code><a href='inject_nas.html'>inject_nas</a></code>.</p></td>
     </tr>
     <tr>
       <th>db</th>
-      <td><p>list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table references in <code>joinrec</code>.</p></td>
+      <td><p>list. A named list of existing tibbles/data.frames. The names will be used to resolve foreign table
+references in <code>joinrec</code>.</p></td>
     </tr>
     <tr>
       <th>keep</th>
@@ -185,7 +192,7 @@ the  <em>dimensions</em> of the  new data table.</p>
 <p>2. The main data synthesis step, which is done by applying the
 <code>tblrec</code> recipe on the scaffolding provided by the newly
 dimensioned table generated in step 1.</p>
-<p>3. Injecting missingness (optiona) using <code>missrec</code>.</p>
+<p>3. Injecting missingness (optional) using <code>missrec</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='reljoin_funcs.html'>reljoin_funcs</a></code></p></div>
